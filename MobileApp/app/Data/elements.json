@@ -1,0 +1,228 @@
+[
+    {
+      "id": "1",
+      "title": "Société A",
+      "mat":"bois",
+      "localisation":"Alger",
+      "qualité":"1 er choix",
+      "livraison":"oui",
+      "photo":"asset:/garbage.jpg",
+      "favorie":1
+    },{
+      "id": "2",
+      "title": "Société B",
+      "mat":"bois",
+      "localisation":"Boumerdes",
+      "qualité":"1 er choix",
+      "photo":"asset:/garbage.jpg",
+      "livraison":"oui",
+      "favorie":0
+    },
+    {
+      "id": "3",
+      "title": "Société C",
+      "mat":"plastique",
+       "localisation":"Alger",
+       "qualité":"2 ème choix",
+       "photo":"asset:/garbage.jpg",
+       "livraison":"non",
+       "favorie":1
+    },
+     {
+      "id": "4",
+     "title": "Société D",
+     "mat":"bois",
+     "localisation":"Blida",
+     "qualité":"2 ème choix",
+     "photo":"asset:/garbage.jpg",
+     "livraison":"non",
+     "favorie":1
+    }
+    ,
+     {
+      "id": "5",
+     "title": "Société D",
+     "mat":"bois",
+     "localisation":"Blida",
+     "qualité":"2 ème choix",
+     "photo":"asset:/garbage.jpg",
+     "livraison":"non",
+     "favorie":1
+    }
+    ,
+     {
+      "id": "6",
+     "title": "Société D",
+     "mat":"bois",
+     "localisation":"Blida",
+     "qualité":"2 ème choix",
+     "photo":"asset:/garbage.jpg",
+     "livraison":"non",
+     "favorie":1
+    }
+    ,
+     {
+      "id": "7",
+     "title": "Société D",
+     "mat":"bois",
+     "localisation":"Blida",
+     "qualité":"2 ème choix",
+     "photo":"asset:/garbage.jpg",
+     "livraison":"non",
+     "favorie":1
+    }
+    ,
+     {
+      "id": "8",
+     "title": "Société D",
+     "mat":"bois",
+     "localisation":"Blida",
+     "qualité":"2 ème choix",
+     "photo":"asset:/garbage.jpg",
+     "livraison":"non",
+     "favorie":1
+    }
+    ,
+     {
+      "id": "9",
+     "title": "Société D",
+     "mat":"bois",
+     "localisation":"Blida",
+     "qualité":"2 ème choix",
+     "photo":"asset:/garbage.jpg",
+     "livraison":"non",
+     "favorie":1
+    }
+    ,
+     {
+      "id": "10",
+     "title": "Société D",
+     "mat":"bois",
+     "localisation":"Blida",
+     "qualité":"2 ème choix",
+     "photo":"asset:/garbage.jpg",
+     "livraison":"non",
+     "favorie":1
+    }
+    ,
+     {
+      "id": "11",
+     "title": "Société D",
+     "mat":"bois",
+     "localisation":"Blida",
+     "qualité":"2 ème choix",
+     "photo":"asset:/garbage.jpg",
+     "livraison":"non",
+     "favorie":1
+    }
+    ,
+     {
+      "id": "12",
+     "title": "Société D",
+     "mat":"bois",
+     "localisation":"Blida",
+     "qualité":"2 ème choix",
+     "photo":"asset:/garbage.jpg",
+     "livraison":"non",
+     "favorie":1
+    }
+    ,
+     {
+      "id": "13",
+     "title": "Société D",
+     "mat":"bois",
+     "localisation":"Blida",
+     "qualité":"2 ème choix",
+     "photo":"asset:/garbage.jpg",
+     "livraison":"non",
+     "favorie":1
+    }
+    ,
+     {
+      "id": "14",
+     "title": "Société D",
+     "mat":"bois",
+     "localisation":"Blida",
+     "qualité":"2 ème choix",
+     "photo":"asset:/garbage.jpg",
+     "livraison":"non",
+     "favorie":1
+    }
+    ,
+     {
+      "id": "15",
+     "title": "Société D",
+     "mat":"bois",
+     "localisation":"Blida",
+     "qualité":"2 ème choix",
+     "photo":"asset:/garbage.jpg",
+     "livraison":"non",
+     "favorie":1
+    }
+    ,
+     {
+      "id": "16",
+     "title": "Société D",
+     "mat":"bois",
+     "localisation":"Blida",
+     "qualité":"2 ème choix",
+     "photo":"asset:/garbage.jpg",
+     "livraison":"non",
+     "favorie":1
+    }
+    ,
+     {
+      "id": "18",
+     "title": "Société D",
+     "mat":"bois",
+     "localisation":"Blida",
+     "qualité":"2 ème choix",
+     "photo":"asset:/garbage.jpg",
+     "livraison":"non",
+     "favorie":1
+    }
+    ,
+     {
+      "id": "19",
+     "title": "Société D",
+     "mat":"bois",
+     "localisation":"Blida",
+     "qualité":"2 ème choix",
+     "photo":"asset:/garbage.jpg",
+     "livraison":"non",
+     "favorie":1
+    }
+    ,
+     {
+      "id": "21",
+     "title": "Société D",
+     "mat":"bois",
+     "localisation":"Blida",
+     "qualité":"2 ème choix",
+     "photo":"asset:/garbage.jpg",
+     "livraison":"non",
+     "favorie":1
+    }
+    ,
+     {
+      "id": "22",
+     "title": "Société D",
+     "mat":"bois",
+     "localisation":"Blida",
+     "qualité":"2 ème choix",
+     "photo":"asset:/garbage.jpg",
+     "livraison":"non",
+     "favorie":1
+    }
+    ,
+     {
+      "id": "23",
+     "title": "Société D",
+     "mat":"bois",
+     "localisation":"Blida",
+     "qualité":"2 ème choix",
+     "photo":"asset:/garbage.jpg",
+     "livraison":"non",
+     "favorie":1
+    }
+  ]
