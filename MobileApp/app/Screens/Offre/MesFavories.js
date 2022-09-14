@@ -70,9 +70,8 @@ function MesFavories() {
             <SafeAreaView>
               <Text
                 style={{
-                  fontFamily: "Poppins-Medium",
                   color: Color.bleu_foncé,
-                  fontSize: 17,
+                  fontSize: 16,
                   paddingBottom: "5%",
                 }}
               >
@@ -89,18 +88,16 @@ function MesFavories() {
               >
                 <Text
                   style={{
-                    fontFamily: "Poppins-Medium",
                     color: Color.noir_leger,
-                    fontSize: 14,
+                    fontSize: 13,
                   }}
                 >
                   {mat.slice(0, 1).toUpperCase() + mat.slice(1)}
                 </Text>
                 <Text
                   style={{
-                    fontFamily: "Poppins-Medium",
                     color: Color.noir_leger,
-                    fontSize: 14,
+                    fontSize: 13,
                   }}
                 >
                   {qualité.slice(0, 1).toUpperCase() + qualité.slice(1)}
@@ -126,9 +123,8 @@ function MesFavories() {
                   <Icon name="map-marker" size={20} color={Color.gris_gris} />
                   <Text
                     style={{
-                      fontFamily: "Poppins-Medium",
                       color: Color.noir_leger,
-                      fontSize: 14,
+                      fontSize: 13,
                     }}
                   >
                     {localisation.slice(0, 1).toUpperCase() +
@@ -146,7 +142,7 @@ function MesFavories() {
               </SafeAreaView>
             </SafeAreaView>
             <SafeAreaView style={{ paddingRight: 40, paddingBottom: 90 }}>
-              <Icon name="heart" size={20} color={Color.gris_gris} />
+              <Icon name="heart" size={20} color={Color.bleu_foncé} />
             </SafeAreaView>
           </TouchableOpacity>
         ) : (
@@ -187,8 +183,7 @@ function MesFavories() {
         style={{
           color: Color.bleu_foncé,
           textAlign: "left",
-          fontFamily: "Poppins-Medium",
-          fontSize: 17,
+          fontSize: 16,
           padding: "4%",
         }}
       >
@@ -203,7 +198,8 @@ function MesFavories() {
             flexDirection: "row",
             justifyContent: "space-around",
             alignItems: "center",
-            marginHorizontal: "10%",
+            marginHorizontal: "5%",
+            marginBottom: "3%",
           }}
         >
           <SearchBar
@@ -212,15 +208,13 @@ function MesFavories() {
               backgroundColor: "transparent",
               width: "100%",
             }}
-            searchIcon={false}
-            clearIcon={false}
+            searchIcon={true}
+            clearIcon={true}
             rightIconContainerStyle={{ marginHorizontal: 40 }}
             inputContainerStyle={{
               width: "100%",
               backgroundColor: Color.blanc,
               height: 50,
-              borderBottomRightRadius: 0,
-              borderTopRightRadius: 0,
             }}
             lightTheme
             round
@@ -228,16 +222,13 @@ function MesFavories() {
             onChangeText={(text) => searchFunction(text)}
             autoCorrect={false}
           />
-          <SafeAreaView style={styles.searchicon}>
-            <Icon name="search" size={25} color={Color.gris_gris} />
-          </SafeAreaView>
         </SafeAreaView>
         {/**************End Search bar************ */}
       </SafeAreaView>
 
       {/***************************************************************************** */}
       {/***************List of items mes favories******************* */}
-      <SafeAreaView style={{ flex: 1, marginBottom: "20%" }}>
+      <SafeAreaView style={{ flex: 1 }}>
         <FlatList
           data={searchdata.slice(pagesvisitées, pagesvisitées + numparpage)}
           renderItem={renderItem}

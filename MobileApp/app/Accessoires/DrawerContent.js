@@ -14,6 +14,7 @@ import {
 import { DrawerContentScrollView, DrawerItem } from "@react-navigation/drawer";
 
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import { Color } from "../../Config/Colors";
 
 export function DrawerContent(props) {
   const Num = "+213 557956402";
@@ -27,9 +28,7 @@ export function DrawerContent(props) {
           <View style={styles.userInfoSection}>
             <View style={{ flexDirection: "row", marginTop: 15 }}>
               <Avatar.Image
-                source={{
-                  uri: "C:UsersAdministratorDzRecupeappassetsprofile.jpg",
-                }}
+                source={require("../../assets/profile.jpg")}
                 size={50}
               />
               <View style={{ marginLeft: 15, flexDirection: "column" }}>
@@ -42,45 +41,70 @@ export function DrawerContent(props) {
           <Drawer.Section style={styles.drawerSection}>
             <DrawerItem
               icon={({ color, size }) => (
-                <Icon name="home-outline" color={color} size={size} />
+                <Icon
+                  name="home-outline"
+                  color={Color.bleu_foncé}
+                  size={size}
+                />
               )}
               label="Home"
+              labelStyle={{ color: Color.bleu_foncé, fontSize: 15 }}
               onPress={() => {
                 props.navigation.navigate("Home");
               }}
             />
             <DrawerItem
               icon={({ color, size }) => (
-                <Icon name="account-outline" color={color} size={size} />
+                <Icon
+                  name="account-outline"
+                  color={Color.bleu_foncé}
+                  size={size}
+                />
               )}
               label="Profile"
+              labelStyle={{ color: Color.bleu_foncé, fontSize: 15 }}
               onPress={() => {
                 props.navigation.navigate("Profile");
               }}
             />
             <DrawerItem
               icon={({ color, size }) => (
-                <Icon name="file-chart-outline" color={color} size={size} />
+                <Icon
+                  name="file-chart-outline"
+                  color={Color.bleu_foncé}
+                  size={size}
+                />
               )}
               label="Mes offres"
+              labelStyle={{ color: Color.bleu_foncé, fontSize: 15 }}
               onPress={() => {
                 props.navigation.navigate("MesOffres");
               }}
             />
             <DrawerItem
               icon={({ color, size }) => (
-                <Icon name="heart-box-outline" color={color} size={size} />
+                <Icon
+                  name="heart-box-outline"
+                  color={Color.bleu_foncé}
+                  size={size}
+                />
               )}
               label="MesFavories"
+              labelStyle={{ color: Color.bleu_foncé, fontSize: 15 }}
               onPress={() => {
                 props.navigation.navigate("MesFavories");
               }}
             />
             <DrawerItem
               icon={({ color, size }) => (
-                <Icon name="message-badge" color={color} size={size} />
+                <Icon
+                  name="message-badge"
+                  color={Color.bleu_foncé}
+                  size={size}
+                />
               )}
               label="Messagerie"
+              labelStyle={{ color: Color.bleu_foncé, fontSize: 15 }}
               onPress={() => {
                 props.navigation.navigate("Messagerie");
               }}
@@ -89,11 +113,12 @@ export function DrawerContent(props) {
               icon={({ color, size }) => (
                 <Icon
                   name="map-marker-radius-outline"
-                  color={color}
+                  color={Color.bleu_foncé}
                   size={size}
                 />
               )}
               label="Map"
+              labelStyle={{ color: Color.bleu_foncé, fontSize: 15 }}
               onPress={() => {
                 props.navigation.navigate("Map");
               }}
@@ -104,18 +129,24 @@ export function DrawerContent(props) {
       <Drawer.Section style={styles.bottomDrawerSection}>
         <DrawerItem
           icon={({ color, size }) => (
-            <Icon name="help-circle-outline" color={color} size={size} />
+            <Icon
+              name="help-circle-outline"
+              color={Color.bleu_foncé}
+              size={size}
+            />
           )}
           label="Aide"
+          labelStyle={{ color: Color.bleu_foncé, fontSize: 15 }}
           onPress={() => {
             props.navigation.navigate("Aide");
           }}
         />
         <DrawerItem
           icon={({ color, size }) => (
-            <Icon name="exit-to-app" color={color} size={size} />
+            <Icon name="exit-to-app" color={Color.bleu_foncé} size={size} />
           )}
           label="Se déconnecter"
+          labelStyle={{ color: Color.bleu_foncé, fontSize: 15 }}
           onPress={() => {
             //se déconnecter
             props.navigation.navigate("LogIn");
@@ -136,11 +167,13 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 16,
     marginTop: 3,
-    fontWeight: "bold",
+    fontWeight: "normal",
+    color: Color.vert,
   },
   caption: {
     fontSize: 14,
     lineHeight: 14,
+    color: Color.bleu_foncé,
   },
   row: {
     marginTop: 20,

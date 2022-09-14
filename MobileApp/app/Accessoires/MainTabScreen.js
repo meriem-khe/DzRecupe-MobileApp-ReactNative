@@ -8,11 +8,14 @@ import Home from "../Screens/Offre/Home";
 import SoumettreOffre from "../Screens/Offre/SoumettreOffre";
 import Map from "../Screens/Offre/Map";
 import Notification from "../Screens/Commun/Notification";
+import MesFavories from "../Screens/Offre/MesFavories";
 
 import { Color } from "../../Config/Colors";
 
 const HomeStack = createStackNavigator();
 const NotifStack = createStackNavigator();
+const SoumettreOffreStack = createStackNavigator();
+const MapStack = createStackNavigator();
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -24,17 +27,17 @@ const MainTabScreen = () => (
       options={{
         tabBarLabel: "Acceuil",
         tabBarColor: Color.bleu_foncé,
-        tabBarIcon: ({ color }) => <Icon name="home" color={color} size={26} />,
+        tabBarIcon: ({ color }) => <Icon name="home" color={color} size={24} />,
       }}
     />
     <Tab.Screen
       name="Offre"
-      component={SoumettreOffre}
+      component={SoumettreOffreStackScreen}
       options={{
         tabBarLabel: "Offre",
-        tabBarColor: "#694fad",
+        tabBarColor: Color.bleu_foncé,
         tabBarIcon: ({ color }) => (
-          <Icon name="plus-circle" color={color} size={26} />
+          <Icon name="plus-circle" color={color} size={24} />
         ),
       }}
     />
@@ -43,19 +46,19 @@ const MainTabScreen = () => (
       component={NotifStackScreen}
       options={{
         tabBarLabel: "Notifications",
-        tabBarColor: "#1f65ff",
-        tabBarIcon: ({ color }) => <Icon name="bell" color={color} size={26} />,
+        tabBarColor: Color.bleu_foncé,
+        tabBarIcon: ({ color }) => <Icon name="bell" color={color} size={24} />,
       }}
     />
 
     <Tab.Screen
-      name="Explorer"
-      component={Map}
+      name="Map"
+      component={MapStackScreen}
       options={{
-        tabBarLabel: "Explorer",
-        tabBarColor: "#d02860",
+        tabBarLabel: "Map",
+        tabBarColor: Color.bleu_foncé,
         tabBarIcon: ({ color }) => (
-          <Icon name="map-o" color={color} size={26} />
+          <Icon name="map-marker" color={color} size={24} />
         ),
       }}
     />
@@ -72,7 +75,7 @@ const HomeStackScreen = ({ navigation }) => (
       },
       headerTintColor: "#fff",
       headerTitleStyle: {
-        fontWeight: "bold",
+        fontWeight: "normal",
       },
     }}
   >
@@ -91,6 +94,21 @@ const HomeStackScreen = ({ navigation }) => (
         ),
       }}
     />
+    <HomeStack.Screen
+      name="MesFavories"
+      component={MesFavories}
+      options={{
+        title: "Mes Favories",
+        headerLeft: () => (
+          <Icon.Button
+            name="bars"
+            size={25}
+            backgroundColor={Color.bleu_foncé}
+            onPress={() => navigation.openDrawer()}
+          ></Icon.Button>
+        ),
+      }}
+    />
   </HomeStack.Navigator>
 );
 
@@ -98,11 +116,11 @@ const NotifStackScreen = ({ navigation }) => (
   <NotifStack.Navigator
     screenOptions={{
       headerStyle: {
-        backgroundColor: "#1f65ff",
+        backgroundColor: Color.bleu_foncé,
       },
       headerTintColor: "#fff",
       headerTitleStyle: {
-        fontWeight: "bold",
+        fontWeight: "normal",
       },
     }}
   >
@@ -114,11 +132,71 @@ const NotifStackScreen = ({ navigation }) => (
           <Icon.Button
             name="bars"
             size={25}
-            backgroundColor="#1f65ff"
+            backgroundColor={Color.bleu_foncé}
             onPress={() => navigation.openDrawer()}
           ></Icon.Button>
         ),
       }}
     />
   </NotifStack.Navigator>
+);
+//////////////////////////////
+const SoumettreOffreStackScreen = ({ navigation }) => (
+  <SoumettreOffreStack.Navigator
+    screenOptions={{
+      headerStyle: {
+        backgroundColor: Color.bleu_foncé,
+      },
+      headerTintColor: "#fff",
+      headerTitleStyle: {
+        fontWeight: "normal",
+      },
+    }}
+  >
+    <SoumettreOffreStack.Screen
+      name="SoumettreOffre"
+      component={SoumettreOffre}
+      options={{
+        title: "Soumettre une nouvelle offre",
+        headerLeft: () => (
+          <Icon.Button
+            name="bars"
+            size={25}
+            backgroundColor={Color.bleu_foncé}
+            onPress={() => navigation.openDrawer()}
+          ></Icon.Button>
+        ),
+      }}
+    />
+  </SoumettreOffreStack.Navigator>
+);
+//
+const MapStackScreen = ({ navigation }) => (
+  <MapStack.Navigator
+    screenOptions={{
+      headerStyle: {
+        backgroundColor: Color.bleu_foncé,
+      },
+      headerTintColor: "#fff",
+      headerTitleStyle: {
+        fontWeight: "normal",
+      },
+    }}
+  >
+    <MapStack.Screen
+      name="Map"
+      component={Map}
+      options={{
+        title: "Map",
+        headerLeft: () => (
+          <Icon.Button
+            name="bars"
+            size={25}
+            backgroundColor={Color.bleu_foncé}
+            onPress={() => navigation.openDrawer()}
+          ></Icon.Button>
+        ),
+      }}
+    />
+  </MapStack.Navigator>
 );

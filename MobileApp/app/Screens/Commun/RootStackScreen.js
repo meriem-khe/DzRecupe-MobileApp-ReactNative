@@ -10,8 +10,8 @@ import LogIn from "../Account/LogIn";
 import SignIn from "../Account/SignIn";
 import CodeVer from "../Account/CodeVer";
 
-const RootStackScreen = ({ navigation }) => (
-  <RootStack.Navigator headerMode="none">
+const RootStackScreen = () => (
+  <RootStack.Navigator headerMode="none" initialRouteName="LogIn">
     <RootStack.Screen name="WelcomeScreen" component={WelcomeScreen} />
     <RootStack.Screen name="Presentation1" component={Presentation1} />
     <RootStack.Screen name="Presentation2" component={Presentation2} />

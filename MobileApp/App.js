@@ -15,8 +15,6 @@ import {
 import { DrawerContent } from "./app/Accessoires/DrawerContent";
 
 import MainTabScreen from "./app/Accessoires/MainTabScreen";
-import MesFavories from "./app/Screens/Offre/MesFavories";
-import SoumettreOffre from "./app/Screens/Offre/SoumettreOffre";
 
 import RootStackScreen from "./app/Screens/Commun/RootStackScreen";
 import { createDrawerNavigator } from "@react-navigation/drawer";
@@ -55,11 +53,9 @@ export default function App() {
         {islogedin ? (
           <Drawer.Navigator
             drawerContent={(props) => <DrawerContent {...props} />}
-            //screenOptions={{ headerShown: false }}
+            screenOptions={{ headerShown: false }}
           >
             <Drawer.Screen name="MainTabScreen" component={MainTabScreen} />
-            <Drawer.Screen name="MesFavories" component={MesFavories} />
-            <Drawer.Screen name="SoumettreOffre" component={SoumettreOffre} />
           </Drawer.Navigator>
         ) : (
           <RootStackScreen />

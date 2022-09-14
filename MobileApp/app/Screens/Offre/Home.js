@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { StatusBar } from "expo-status-bar";
 import {
   SafeAreaView,
   Text,
@@ -6,6 +7,8 @@ import {
   TouchableOpacity,
   FlatList,
   Image,
+  SectionList,
+  View,
 } from "react-native";
 
 import { SearchBar } from "react-native-elements";
@@ -16,6 +19,11 @@ import qualité from "../../Data/qualité.json";
 import Localisation from "../../Data/Localisation.json";
 import SelectDropdown from "react-native-select-dropdown";
 import elements from "../../Data/elements.json";
+
+import { Dimensions } from "react-native";
+
+export const SCREEN_WIDTH = Dimensions.get("window").width;
+export const SCREEN_HEIGHT = Dimensions.get("window").height;
 
 //import ReactPaginate from "react-paginate";
 
@@ -35,20 +43,54 @@ function Home({ navigation, route }) {
   const pagesvisitées = Numpage * numparpage;
   const pagecount = Math.ceil(searchdata.length / numparpage);
 
+  ////////////////////////////////////////////////////////////////
+
+  const DropList = [
+    {
+      key: "1",
+      text: "Item text 1",
+      data: ["bois", "ferreux", "plastique", "papier"],
+      search: false,
+      name: "matière",
+    },
+    {
+      key: "2",
+      text: "Item text 2",
+      data: ["1 er choix", "2 ème choix", "3 ème choix"],
+      search: false,
+      name: "qualité",
+    },
+    {
+      key: "3",
+      text: "Item text 3",
+      data: ["Alger", "Boumerdes", "Tizi Ouzou", "Blida"],
+      search: true,
+      name: "localisation",
+    },
+    {
+      key: "4",
+      text: "Item text 4",
+      data: ["oui", "non"],
+      search: false,
+      name: "livraison",
+    },
+  ];
+  const SECTIONS = [
+    {
+      title: "Choisissez un filtre",
+      horizontal: true,
+      data: DropList,
+    },
+    {
+      title: "La liste des offres qui existent",
+      horizontal: false,
+      data: searchdata,
+    },
+  ];
+
   //Declaration des fonctions
   //////////////////////////////////////////////////////////////
 
-  const renderItem = ({ item }) => (
-    <Item
-      title={item.title}
-      mat={item.mat}
-      localisation={item.localisation}
-      qualité={item.qualité}
-      livraison={item.livraison}
-      photo={item.photo}
-      favorie={item.favorie}
-    />
-  );
   const Item = ({
     title,
     mat,
@@ -75,9 +117,8 @@ function Home({ navigation, route }) {
         <SafeAreaView>
           <Text
             style={{
-              fontFamily: "Poppins-Medium",
               color: Color.bleu_foncé,
-              fontSize: 17,
+              fontSize: 16,
               paddingBottom: "5%",
             }}
           >
@@ -88,24 +129,22 @@ function Home({ navigation, route }) {
               flexDirection: "row",
               justifyContent: "space-between",
               alignItems: "center",
-              width: "55%",
+              width: "54%",
               paddingBottom: "3%",
             }}
           >
             <Text
               style={{
-                fontFamily: "Poppins-Medium",
                 color: Color.noir_leger,
-                fontSize: 14,
+                fontSize: 13,
               }}
             >
               {mat.slice(0, 1).toUpperCase() + mat.slice(1)}
             </Text>
             <Text
               style={{
-                fontFamily: "Poppins-Medium",
                 color: Color.noir_leger,
-                fontSize: 14,
+                fontSize: 13,
               }}
             >
               {qualité.slice(0, 1).toUpperCase() + qualité.slice(1)}
@@ -131,9 +170,8 @@ function Home({ navigation, route }) {
               <Icon name="map-marker" size={20} color={Color.gris_gris} />
               <Text
                 style={{
-                  fontFamily: "Poppins-Medium",
                   color: Color.noir_leger,
-                  fontSize: 14,
+                  fontSize: 13,
                 }}
               >
                 {localisation.slice(0, 1).toUpperCase() + localisation.slice(1)}
@@ -157,7 +195,7 @@ function Home({ navigation, route }) {
                 ); /* changer l'etat en bdd  */
               }}
             >
-              <Icon name="heart-o" size={20} color={Color.gris_gris} />
+              <Icon name="heart-o" size={20} color={Color.bleu_foncé} />
             </TouchableOpacity>
           ) : (
             <TouchableOpacity
@@ -168,11 +206,80 @@ function Home({ navigation, route }) {
                 } /* changer l'etat en bdd  */
               }
             >
-              <Icon name="heart" size={20} color={Color.gris_gris} />
+              <Icon name="heart" size={20} color={Color.bleu_foncé} />
             </TouchableOpacity>
           )}
         </SafeAreaView>
       </TouchableOpacity>
+    );
+  };
+  const Drop = ({ data, ifsearch, name }) => {
+    return (
+      <View style={styles.itemfiltre}>
+        {ifsearch ? (
+          <SelectDropdown
+            buttonStyle={styles.innerdrop}
+            data={data}
+            buttonTextStyle={{ color: Color.vert }}
+            dropdownStyle={{
+              width: "50%",
+              position: "absolute",
+              left: "25%",
+              right: "25%",
+            }}
+            selectedRowTextStyle={{ color: Color.vert }}
+            selectedRowStyle={{ backgroundColor: Color.gris_background }}
+            defaultButtonText={name}
+            search={true}
+            onSelect={(selectedItem, index) => {
+              searchFunction(selectedItem);
+            }}
+            dropdownIconPosition="right"
+            searchInputStyle={{ width: "170%" }}
+            renderSearchInputRightIcon={() => (
+              <Icon name="search" size={15} color={Color.gris_écriture} />
+            )}
+            searchPlaceHolder="Recherche"
+            buttonTextAfterSelection={(selectedItem, index) => {
+              return selectedItem;
+            }}
+            rowTextForSelection={(item, index) => {
+              return item;
+            }}
+            renderDropdownIcon={() => (
+              <Icon name="chevron-down" size={15} color={Color.vert} />
+            )}
+          />
+        ) : (
+          <SelectDropdown
+            buttonStyle={styles.innerdrop}
+            data={data}
+            buttonTextStyle={{ color: Color.vert }}
+            dropdownStyle={{
+              width: "50%",
+              position: "absolute",
+              left: "25%",
+              right: "25%",
+            }}
+            selectedRowTextStyle={{ color: Color.vert }}
+            selectedRowStyle={{ backgroundColor: Color.gris_background }}
+            defaultButtonText={name}
+            onSelect={(selectedItem, index) => {
+              searchFunction(selectedItem);
+            }}
+            dropdownIconPosition="right"
+            buttonTextAfterSelection={(selectedItem, index) => {
+              return selectedItem;
+            }}
+            rowTextForSelection={(item, index) => {
+              return item;
+            }}
+            renderDropdownIcon={() => (
+              <Icon name="chevron-down" size={15} color={Color.vert} />
+            )}
+          />
+        )}
+      </View>
     );
   };
   const searchFunction = (text) => {
@@ -198,8 +305,6 @@ function Home({ navigation, route }) {
     setNumpage(selected);
   };
 
-  /////////
-
   return (
     <SafeAreaView style={styles.bigcontainer}>
       {/** content starts here */}
@@ -209,8 +314,7 @@ function Home({ navigation, route }) {
         style={{
           color: Color.bleu_foncé,
           textAlign: "left",
-          fontFamily: "Poppins-Medium",
-          fontSize: 17,
+          fontSize: 16,
           padding: "4%",
         }}
       >
@@ -218,202 +322,93 @@ function Home({ navigation, route }) {
       </Text>
       {/***************************************************************************** */}
 
-      <SafeAreaView style={{ flexDirection: "column" }}>
-        {/**  SearchBar starts here */}
-        <SafeAreaView
-          style={{
-            flexDirection: "row",
-            justifyContent: "space-around",
-            alignItems: "center",
-            marginLeft: "23%",
-            width: "70%",
-            marginBottom: "3%",
+      {/**  SearchBar starts here */}
+      <SafeAreaView
+        style={{
+          flexDirection: "row",
+          justifyContent: "space-around",
+          alignItems: "center",
+          marginBottom: "3%",
+        }}
+      >
+        <SearchBar
+          placeholder="Recherche..."
+          containerStyle={{
+            backgroundColor: "transparent",
+            borderStyle: "solid",
+            paddingHorizontal: "5%",
+            width: "100%",
           }}
-        >
-          <SearchBar
-            placeholder="Recherche..."
-            containerStyle={{
-              backgroundColor: "transparent",
-              borderStyle: "solid",
-
-              width: "100%",
-            }}
-            searchIcon={false}
-            clearIcon={false}
-            rightIconContainerStyle={{ marginHorizontal: 40 }}
-            inputContainerStyle={{
-              width: "100%",
-              backgroundColor: Color.blanc,
-              height: 50,
-              borderBottomRightRadius: 0,
-              borderTopRightRadius: 0,
-            }}
-            lightTheme
-            round
-            value={searchValue}
-            onChangeText={(text) => searchFunction(text)}
-            autoCorrect={false}
-          />
-          <SafeAreaView style={styles.searchicon}>
-            <Icon name="search" size={25} color={Color.gris_gris} />
-          </SafeAreaView>
-        </SafeAreaView>
-        {/**End search bar */}
-
-        {/***************************************************************************** */}
-
-        {/** filters dropdown */}
-        <SafeAreaView style={styles.dropdown} accessibilityRole="scrollbar">
-          <SelectDropdown
-            buttonStyle={styles.innerdrop}
-            data={matière}
-            buttonTextStyle={{ color: Color.vert }}
-            dropdownStyle={{
-              width: "50%",
-              position: "absolute",
-              left: "25%",
-              right: "25%",
-            }}
-            selectedRowTextStyle={{ color: Color.vert }}
-            selectedRowStyle={{ backgroundColor: Color.gris_background }}
-            defaultButtonText="matière"
-            onSelect={(selectedItem, index) => {
-              searchFunction(selectedItem);
-            }}
-            dropdownIconPosition="right"
-            buttonTextAfterSelection={(selectedItem, index) => {
-              return selectedItem;
-            }}
-            rowTextForSelection={(item, index) => {
-              return item;
-            }}
-            renderDropdownIcon={() => (
-              <Icon name="chevron-down" size={15} color={Color.vert} />
-            )}
-          />
-
-          <SelectDropdown
-            buttonStyle={styles.innerdrop}
-            data={qualité}
-            buttonTextStyle={{ color: Color.vert }}
-            dropdownStyle={{
-              width: "50%",
-              position: "absolute",
-              left: "25%",
-              right: "25%",
-            }}
-            selectedRowTextStyle={{ color: Color.vert }}
-            selectedRowStyle={{ backgroundColor: Color.gris_background }}
-            defaultButtonText="qualité"
-            onSelect={(selectedItem, index) => {
-              searchFunction(selectedItem);
-            }}
-            dropdownIconPosition="right"
-            buttonTextAfterSelection={(selectedItem, index) => {
-              return selectedItem;
-            }}
-            rowTextForSelection={(item, index) => {
-              return item;
-            }}
-            renderDropdownIcon={() => (
-              <Icon name="chevron-down" size={15} color={Color.vert} />
-            )}
-          />
-
-          <SelectDropdown
-            buttonStyle={styles.innerdrop}
-            data={Localisation}
-            buttonTextStyle={{ color: Color.vert }}
-            dropdownStyle={{
-              width: "50%",
-              position: "absolute",
-              left: "25%",
-              right: "25%",
-            }}
-            selectedRowTextStyle={{ color: Color.vert }}
-            selectedRowStyle={{ backgroundColor: Color.gris_background }}
-            defaultButtonText="localisation"
-            search={true}
-            onSelect={(selectedItem, index) => {
-              searchFunction(selectedItem);
-            }}
-            dropdownIconPosition="right"
-            searchInputStyle={{ width: "170%" }}
-            renderSearchInputRightIcon={() => (
-              <Icon name="search" size={15} color={Color.gris_écriture} />
-            )}
-            searchPlaceHolder="chercher la localisation"
-            buttonTextAfterSelection={(selectedItem, index) => {
-              return selectedItem;
-            }}
-            rowTextForSelection={(item, index) => {
-              return item;
-            }}
-            renderDropdownIcon={() => (
-              <Icon name="chevron-down" size={15} color={Color.vert} />
-            )}
-          />
-          <SelectDropdown
-            buttonStyle={styles.innerdrop}
-            data={livraison}
-            buttonTextStyle={{ color: Color.vert }}
-            dropdownStyle={{
-              width: "50%",
-              position: "absolute",
-              left: "25%",
-              right: "25%",
-            }}
-            selectedRowTextStyle={{ color: Color.vert }}
-            selectedRowStyle={{ backgroundColor: Color.gris_background }}
-            defaultButtonText="Livraison"
-            onSelect={(selectedItem, index) => {
-              searchFunction(selectedItem);
-            }}
-            dropdownIconPosition="right"
-            buttonTextAfterSelection={(selectedItem, index) => {
-              return selectedItem;
-            }}
-            rowTextForSelection={(item, index) => {
-              return item;
-            }}
-            renderDropdownIcon={() => (
-              <Icon name="chevron-down" size={15} color={Color.vert} />
-            )}
-          />
-        </SafeAreaView>
-        {/**End filters dropdown */}
-      </SafeAreaView>
-      {/***************************************************************************** */}
-
-      {/**********************flatlist des offres qui existent********************** */}
-      <SafeAreaView style={{ flex: 1, marginTop: 20, marginBottom: "20%" }}>
-        {/*refreshing ? <ActivityIndicator /> : null*/}
-        <FlatList
-          data={searchdata.slice(pagesvisitées, pagesvisitées + numparpage)}
-          renderItem={renderItem}
-          keyExtractor={(item) => item.id}
-          style={{ flex: 1 }}
-          /* refreshControl={
-            <RefreshControl
-              refreshing={refreshing}
-              onRefresh={setsearchdata(elements)}
-            />
-          }*/
+          searchIcon={true}
+          clearIcon={true}
+          rightIconContainerStyle={{ marginHorizontal: 40 }}
+          inputContainerStyle={{
+            width: "100%",
+            backgroundColor: Color.blanc,
+            height: 50,
+            padding: "5%",
+          }}
+          lightTheme
+          round
+          value={searchValue}
+          onChangeText={(text) => searchFunction(text)}
+          autoCorrect={false}
         />
-        {/*<div></div>
-          <ReactPaginate
-            previousLabel={"Prec"}
-            nextLabel={"suiv"}
-            pageCount={pagecount}
-            onPageChange={pagechange}
-            containerClassName={"containerall"}
-            previousLinkClassName={"prec"}
-            nextLinkClassName={"suiv"}
-            disabledClassName={"disabled"}
-            activeClassName={"isactive"}
-          />
-        </Text>*/}
       </SafeAreaView>
+      {/**End search bar */}
+
+      {/***************************************************************************** */}
+      <View style={styles.container}>
+        <StatusBar style="light" />
+        <SafeAreaView style={{ flex: 1 }}>
+          <SectionList
+            contentContainerStyle={{ paddingHorizontal: 10 }}
+            stickySectionHeadersEnabled={false}
+            sections={SECTIONS}
+            renderSectionHeader={({ section }) => (
+              <>
+                <Text style={styles.sectionHeader}>{section.title}</Text>
+
+                {
+                  //****************************Liste des filtres************************** */
+                  section.horizontal ? (
+                    <FlatList
+                      data={section.data}
+                      horizontal
+                      renderItem={({ item }) => (
+                        <Drop
+                          data={item.data}
+                          ifsearch={item.search}
+                          name={item.name}
+                        />
+                      )}
+                      showsHorizontalScrollIndicator={false}
+                    />
+                  ) : null
+                }
+              </>
+            )}
+            /**********************flatlist des offres qui existent********************** */
+            renderItem={({ item, section }) => {
+              if (section.horizontal) {
+                return null;
+              }
+              return (
+                <Item
+                  title={item.title}
+                  mat={item.mat}
+                  localisation={item.localisation}
+                  qualité={item.qualité}
+                  livraison={item.livraison}
+                  photo={item.photo}
+                  favorie={item.favorie}
+                />
+              );
+            }}
+          />
+        </SafeAreaView>
+      </View>
+
       {/***************************************************************************** */}
       {/*End of Content*/}
     </SafeAreaView>
@@ -427,41 +422,45 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: Color.gris_background,
   },
-  dropdown: {
-    borderColor: "transparent",
-    flexDirection: "row",
-    justifyContent: "flex-start",
-    alignSelf: "center",
-    paddingHorizontal: "5%",
-    paddingTop: "1%",
-  },
+
   innerdrop: {
-    width: "33%",
-    marginHorizontal: "1%",
+    width: 160,
     height: 50,
     backgroundColor: Color.blanc,
     borderRadius: 25,
     justifyContent: "center",
     alignItems: "center",
   },
-
-  searchicon: {
-    backgroundColor: Color.vert,
-    borderTopRightRadius: 15,
-    borderBottomRightRadius: 15,
-    height: 50,
-    width: "15%",
-    alignItems: "center",
-    justifyContent: "center",
+  container: {
+    flex: 1,
+  },
+  sectionHeader: {
+    fontWeight: "normal",
+    fontSize: 16,
+    color: Color.bleu_foncé,
+    marginTop: 20,
+    marginBottom: 10,
+    marginLeft: 7,
   },
   item: {
+    width: SCREEN_WIDTH - 20,
+    flexDirection: "row",
+    justifyContent: "space-evenly",
     backgroundColor: Color.blanc,
+    padding: 20,
+    marginVertical: 8,
+    borderRadius: 10,
+  },
+  itemfiltre: {
     flexDirection: "row",
     justifyContent: "space-evenly",
     alignItems: "center",
-    padding: 20,
-    marginVertical: 8,
-    marginHorizontal: 16,
+    marginHorizontal: 5,
+    marginVertical: 15,
+  },
+  itemText: {
+    color: "rgba(255, 255, 255, 0.5)",
+    marginTop: 5,
   },
 });
 
