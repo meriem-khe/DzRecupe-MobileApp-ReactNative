@@ -9,6 +9,7 @@ import {
   Image,
   SectionList,
   View,
+  RefreshControl,
 } from "react-native";
 
 import { SearchBar } from "react-native-elements";
@@ -19,6 +20,8 @@ import qualité from "../../Data/qualité.json";
 import Localisation from "../../Data/Localisation.json";
 import SelectDropdown from "react-native-select-dropdown";
 import elements from "../../Data/elements.json";
+
+import PaginationDot from "react-native-animated-pagination-dot";
 
 import { Dimensions } from "react-native";
 
@@ -36,12 +39,16 @@ function Home({ navigation, route }) {
 
   const [searchdata, setsearchdata] = useState(elements);
   const [searchValue, setsearchValue] = useState("");
-  //const [refreshing, setRefreshing] = useState(true);
+  const [refreshing, setRefreshing] = useState(false);
   const [Numpage, setNumpage] = useState(0);
 
   const numparpage = 10;
   const pagesvisitées = Numpage * numparpage;
   const pagecount = Math.ceil(searchdata.length / numparpage);
+
+  const wait = (timeout) => {
+    return new Promise((resolve) => setTimeout(resolve, timeout));
+  };
 
   ////////////////////////////////////////////////////////////////
 
@@ -305,6 +312,11 @@ function Home({ navigation, route }) {
     setNumpage(selected);
   };
 
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+    setsearchdata(elements.slice(0, 10));
+    wait(2000).then(() => setRefreshing(false));
+  }, []);
   return (
     <SafeAreaView style={styles.bigcontainer}>
       {/** content starts here */}
@@ -357,7 +369,7 @@ function Home({ navigation, route }) {
       </SafeAreaView>
       {/**End search bar */}
 
-      {/***************************************************************************** */}
+      {/***************************Data list**************************************** */}
       <View style={styles.container}>
         <StatusBar style="light" />
         <SafeAreaView style={{ flex: 1 }}>
@@ -405,9 +417,21 @@ function Home({ navigation, route }) {
                 />
               );
             }}
+            onEndReached={() => (
+              <PaginationDot
+                activeDotColor={"black"}
+                curPage={Numpage}
+                maxPage={pagecount}
+              />
+            )}
+            refreshControl={
+              <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+            }
           />
         </SafeAreaView>
       </View>
+
+      {/****************************Load more btn************************************ */}
 
       {/***************************************************************************** */}
       {/*End of Content*/}
