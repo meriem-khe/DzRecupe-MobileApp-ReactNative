@@ -35,17 +35,13 @@ function Home({ navigation, route }) {
   ///////////////////////////////////////////////
 
   const screenName = route.name;
-  const livraison = ["oui", "non"];
 
   const [searchdata, setsearchdata] = useState(elements);
   const [searchValue, setsearchValue] = useState("");
   const [refreshing, setRefreshing] = useState(false);
-  const [Numpage, setNumpage] = useState(0);
-
-  const numparpage = 10;
-  const pagesvisitées = Numpage * numparpage;
-  const pagecount = Math.ceil(searchdata.length / numparpage);
-
+  const [Numpage, setNumpage] = useState(1);
+  const [message, setmessage] = useState("charger plus");
+  const [lastborder, setlastborder] = useState(10);
   const wait = (timeout) => {
     return new Promise((resolve) => setTimeout(resolve, timeout));
   };
@@ -91,7 +87,7 @@ function Home({ navigation, route }) {
     {
       title: "La liste des offres qui existent",
       horizontal: false,
-      data: searchdata,
+      data: searchdata.slice(0, lastborder),
     },
   ];
 
@@ -308,15 +304,16 @@ function Home({ navigation, route }) {
       setsearchValue(text);
     }
   };
-  const pagechange = ({ selected }) => {
-    setNumpage(selected);
-  };
 
   const onRefresh = React.useCallback(() => {
     setRefreshing(true);
-    setsearchdata(elements.slice(0, 10));
+    searchFunction("");
+    setmessage("charger plus");
+    setNumpage(1);
+    setlastborder(10);
     wait(2000).then(() => setRefreshing(false));
   }, []);
+
   return (
     <SafeAreaView style={styles.bigcontainer}>
       {/** content starts here */}
@@ -417,22 +414,39 @@ function Home({ navigation, route }) {
                 />
               );
             }}
-            onEndReached={() => (
-              <PaginationDot
-                activeDotColor={"black"}
-                curPage={Numpage}
-                maxPage={pagecount}
-              />
-            )}
             refreshControl={
               <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
             }
+            ListFooterComponent={({ section }) => (
+              <TouchableOpacity
+                style={{
+                  margin: 10,
+                  flexDirection: "row",
+                  justifyContent: "flex-end",
+                  alignItems: "center",
+                }}
+                onPress={() => {
+                  if (Numpage * 10 + 10 > searchdata.length) {
+                    setmessage("vous etes arrivés à la fin de la liste");
+                    setlastborder(searchdata.length);
+                    setNumpage(Numpage + 1);
+                  } else {
+                    setmessage("charger plus");
+                    setlastborder(Numpage * 10 + 10);
+                    setNumpage(Numpage + 1);
+                  }
+                }}
+              >
+                <Text style={{ color: Color.vert, fontSize: 15 }}>
+                  {message}
+                </Text>
+              </TouchableOpacity>
+            )}
           />
         </SafeAreaView>
       </View>
 
       {/****************************Load more btn************************************ */}
-
       {/***************************************************************************** */}
       {/*End of Content*/}
     </SafeAreaView>
