@@ -13,17 +13,17 @@ import matière from "../../Data/matière.json";
 import qualité from "../../Data/qualité.json";
 import Localisation from "../../Data/Localisation.json";
 import SelectDropdown from "react-native-select-dropdown";
+import { Dimensions } from "react-native";
+import { RadioButton } from "react-native-paper";
 
-///
-//import Header from "../../Accessoires/Header";
-//import Footer from "../../Accessoires/Footer";
-//import MenuGauche from "../../Accessoires/MenuGauche";
+export const WIDTH = Dimensions.get("window").width;
+export const HEIGHT = Dimensions.get("window").height;
 
 function SoumettreOffre({ navigation, route }) {
   //Declaration des variables
   ////////////////////////////////////////////////////////////
 
-  const screenName = route.name;
+  // const screenName = route.name;
   const [clicked, setclicked] = useState(false);
   const [formData, setformData] = useState({
     matière: "",
@@ -34,7 +34,6 @@ function SoumettreOffre({ navigation, route }) {
     poids: "",
     prix: "",
   });
-
   const [first, setfirst] = useState(true);
 
   //Declaration des fonctions
@@ -73,15 +72,22 @@ function SoumettreOffre({ navigation, route }) {
     ) {
       alert("votre offre est prise en charge");
       setclicked(false);
+      setfirst(true);
+      setformData({
+        matière: "",
+        qualité: "",
+        wilaya: "",
+        commune: "",
+        livraison: "",
+        poids: "",
+        prix: "",
+      });
       navigation.navigate("Home");
     }
   };
-
   /////////////////////////////////////////////////////
   return (
     <SafeAreaView style={styles.bigcontainer}>
-      {/* <Header />*/}
-
       {/** content starts here */}
 
       {/***************************************************************************** */}
@@ -89,8 +95,7 @@ function SoumettreOffre({ navigation, route }) {
         style={{
           color: Color.bleu_foncé,
           textAlign: "left",
-          fontFamily: "Poppins-Medium",
-          fontSize: 17,
+          fontSize: 16,
           padding: "4%",
         }}
       >
@@ -107,13 +112,19 @@ function SoumettreOffre({ navigation, route }) {
 
           <SafeAreaView style={styles.formcontainer}>
             {/**first dropdown input */}
-            <SafeAreaView>
+            <SafeAreaView
+              style={{
+                flexDirection: "row",
+                justifyContent: "space-between",
+                alignItems: "flex-start",
+                marginTop: 25,
+              }}
+            >
               <Text
                 style={{
                   color: Color.bleu_foncé,
                   textAlign: "left",
-                  fontFamily: "Poppins-Medium",
-                  fontSize: 17,
+                  fontSize: 16,
                   padding: "4%",
                 }}
               >
@@ -131,7 +142,9 @@ function SoumettreOffre({ navigation, route }) {
                 }}
                 selectedRowTextStyle={{ color: Color.vert }}
                 selectedRowStyle={{ backgroundColor: Color.gris_background }}
-                defaultButtonText="matière"
+                defaultButtonText={
+                  formData.matière ? formData.matière : "matériel"
+                }
                 onSelect={(selectedItem, index) => {
                   onChangeField("matière", selectedItem);
                 }}
@@ -146,26 +159,36 @@ function SoumettreOffre({ navigation, route }) {
                   <Icon name="chevron-down" size={15} color={Color.vert} />
                 )}
               />
+            </SafeAreaView>
+            <SafeAreaView>
               <Text
                 style={{
                   color: "red",
                   textAlign: "left",
-                  paddingVertical: "3%",
+                  fontSize: 13,
+                  paddingHorizontal: 15,
+                  paddingTop: 5,
                 }}
               >
                 {!formData.matière && clicked
-                  ? "veuillez introduire le type de la matière que vous allez offrir"
+                  ? "Indiquez le type de la matière que vous allez offrir"
                   : ""}
               </Text>
             </SafeAreaView>
             {/**2nd dropdown input */}
-            <SafeAreaView>
+            <SafeAreaView
+              style={{
+                flexDirection: "row",
+                justifyContent: "space-between",
+                alignItems: "flex-start",
+                marginTop: 25,
+              }}
+            >
               <Text
                 style={{
                   color: Color.bleu_foncé,
                   textAlign: "left",
-                  fontFamily: "Poppins-Medium",
-                  fontSize: 17,
+                  fontSize: 16,
                   padding: "4%",
                 }}
               >
@@ -183,7 +206,9 @@ function SoumettreOffre({ navigation, route }) {
                 }}
                 selectedRowTextStyle={{ color: Color.vert }}
                 selectedRowStyle={{ backgroundColor: Color.gris_background }}
-                defaultButtonText="qualité"
+                defaultButtonText={
+                  formData.qualité ? formData.qualité : "qualité"
+                }
                 onSelect={(selectedItem, index) => {
                   onChangeField("qualité", selectedItem);
                 }}
@@ -198,11 +223,15 @@ function SoumettreOffre({ navigation, route }) {
                   <Icon name="chevron-down" size={15} color={Color.vert} />
                 )}
               />
+            </SafeAreaView>
+            <SafeAreaView>
               <Text
                 style={{
                   color: "red",
                   textAlign: "left",
-                  paddingVertical: "3%",
+                  fontSize: 13,
+                  paddingHorizontal: 15,
+                  paddingTop: 5,
                 }}
               >
                 {formData.qualité === "" && clicked
@@ -211,13 +240,20 @@ function SoumettreOffre({ navigation, route }) {
               </Text>
             </SafeAreaView>
             {/**3rd dropdown input */}
-            <SafeAreaView>
+            <SafeAreaView
+              style={{
+                flexDirection: "row",
+                justifyContent: "space-between",
+                alignItems: "flex-start",
+                marginTop: 25,
+              }}
+            >
               <Text
                 style={{
                   color: Color.bleu_foncé,
                   textAlign: "left",
-                  fontFamily: "Poppins-Medium",
-                  fontSize: 17,
+
+                  fontSize: 16,
                   padding: "4%",
                 }}
               >
@@ -235,7 +271,7 @@ function SoumettreOffre({ navigation, route }) {
                 }}
                 selectedRowTextStyle={{ color: Color.vert }}
                 selectedRowStyle={{ backgroundColor: Color.gris_background }}
-                defaultButtonText="Wilaya"
+                defaultButtonText={formData.wilaya ? formData.wilaya : "wilaya"}
                 search={true}
                 onSelect={(selectedItem, index) => {
                   onChangeField("wilaya", selectedItem);
@@ -256,11 +292,15 @@ function SoumettreOffre({ navigation, route }) {
                   <Icon name="chevron-down" size={15} color={Color.vert} />
                 )}
               />
+            </SafeAreaView>
+            <SafeAreaView>
               <Text
                 style={{
                   color: "red",
                   textAlign: "left",
-                  paddingVertical: "3%",
+                  fontSize: 13,
+                  paddingHorizontal: 15,
+                  paddingTop: 5,
                 }}
               >
                 {!formData.wilaya && clicked
@@ -269,14 +309,20 @@ function SoumettreOffre({ navigation, route }) {
               </Text>
             </SafeAreaView>
             {/**4th dropdown input */}
-            <SafeAreaView>
+            <SafeAreaView
+              style={{
+                flexDirection: "row",
+                justifyContent: "space-between",
+                alignItems: "flex-start",
+                marginTop: 25,
+              }}
+            >
               {/**Label */}
               <Text
                 style={{
                   color: Color.bleu_foncé,
                   textAlign: "left",
-                  fontFamily: "Poppins-Medium",
-                  fontSize: 17,
+                  fontSize: 16,
                   padding: "4%",
                 }}
               >
@@ -295,7 +341,9 @@ function SoumettreOffre({ navigation, route }) {
                 }}
                 selectedRowTextStyle={{ color: Color.vert }}
                 selectedRowStyle={{ backgroundColor: Color.gris_background }}
-                defaultButtonText="Commune"
+                defaultButtonText={
+                  formData.commune ? formData.commune : "commune"
+                }
                 search={true}
                 onSelect={(selectedItem, index) => {
                   onChangeField("commune", selectedItem);
@@ -316,12 +364,16 @@ function SoumettreOffre({ navigation, route }) {
                   <Icon name="chevron-down" size={15} color={Color.vert} />
                 )}
               />
+            </SafeAreaView>
+            <SafeAreaView>
               {/**error msg */}
               <Text
                 style={{
                   color: "red",
                   textAlign: "left",
-                  paddingVertical: "3%",
+                  fontSize: 13,
+                  paddingHorizontal: 15,
+                  paddingTop: 5,
                 }}
               >
                 {!formData.commune && clicked
@@ -343,15 +395,14 @@ function SoumettreOffre({ navigation, route }) {
                 alignItems: "center",
                 position: "absolute",
                 right: "0%",
-                top: "70%",
+                top: HEIGHT / 1.6,
               }}
             >
               <Text
                 style={{
                   color: Color.blanc,
-                  textAlign: "left",
-                  fontFamily: "Poppins-Medium",
-                  fontSize: 17,
+                  textAlign: "center",
+                  fontSize: 16,
                   padding: "7%",
                 }}
               >
@@ -378,45 +429,41 @@ function SoumettreOffre({ navigation, route }) {
                   style={{
                     color: Color.bleu_foncé,
                     textAlign: "left",
-                    fontFamily: "Poppins-Medium",
-                    fontSize: 17,
-                    padding: "4%",
+                    fontSize: 16,
+                    paddingHorizontal: "4%",
                   }}
                 >
                   Livraison
                 </Text>
-                <SelectDropdown
-                  buttonStyle={styles.innerdrop}
-                  data={["oui", "non"]}
-                  buttonTextStyle={{ color: Color.vert }}
-                  dropdownStyle={{
-                    width: "50%",
-                    position: "absolute",
-                    left: "25%",
-                    right: "25%",
-                  }}
-                  selectedRowTextStyle={{ color: Color.vert }}
-                  selectedRowStyle={{ backgroundColor: Color.gris_background }}
-                  defaultButtonText="Livraison"
-                  onSelect={(selectedItem, index) => {
-                    onChangeField("livraison", selectedItem);
-                  }}
-                  dropdownIconPosition="right"
-                  buttonTextAfterSelection={(selectedItem, index) => {
-                    return selectedItem;
-                  }}
-                  rowTextForSelection={(item, index) => {
-                    return item;
-                  }}
-                  renderDropdownIcon={() => (
-                    <Icon name="chevron-down" size={15} color={Color.vert} />
-                  )}
-                />
+                <SafeAreaView>
+                  <RadioButton.Group
+                    onValueChange={(value) => onChangeField("livraison", value)}
+                    value={formData.livraison}
+                  >
+                    <RadioButton.Item
+                      label="Oui"
+                      value="oui"
+                      position={"leading"}
+                      color={Color.vert}
+                      labelStyle={{ fontSize: 14 }}
+                    />
+                    <RadioButton.Item
+                      label="Non"
+                      value="non"
+                      position={"leading"}
+                      color={Color.vert}
+                      labelStyle={{ fontSize: 14 }}
+                    />
+                  </RadioButton.Group>
+                </SafeAreaView>
+
                 <Text
                   style={{
                     color: "red",
                     textAlign: "left",
-                    paddingVertical: "3%",
+                    fontSize: 13,
+                    paddingHorizontal: 15,
+                    paddingTop: 5,
                   }}
                 >
                   {!formData.livraison && clicked
@@ -425,14 +472,19 @@ function SoumettreOffre({ navigation, route }) {
                 </Text>
               </SafeAreaView>
               {/**second text input */}
-              <SafeAreaView>
+              <SafeAreaView
+                style={{
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                  alignItems: "flex-start",
+                }}
+              >
                 {/**Label */}
                 <Text
                   style={{
                     color: Color.bleu_foncé,
                     textAlign: "left",
-                    fontFamily: "Poppins-Medium",
-                    fontSize: 17,
+                    fontSize: 16,
                     padding: "4%",
                   }}
                 >
@@ -440,32 +492,42 @@ function SoumettreOffre({ navigation, route }) {
                 </Text>
                 {/**input container */}
                 <TextInput
+                  value={formData.poids}
                   style={styles.innerdrop2}
-                  placeholder="Poids kg"
+                  placeholder="Poids KG"
                   onChangeText={(text) => {
                     onChangeField("poids", text);
                   }}
                   keyboardType={"numeric"}
                 />
+              </SafeAreaView>
+              <SafeAreaView>
                 {/**error message */}
                 <Text
                   style={{
                     color: "red",
                     textAlign: "left",
-                    paddingVertical: "3%",
+                    fontSize: 13,
+                    paddingHorizontal: 15,
+                    paddingTop: 5,
                   }}
                 >
                   {!formData.poids && clicked ? "indiquez le poids" : ""}
                 </Text>
               </SafeAreaView>
               {/**third text input */}
-              <SafeAreaView>
+              <SafeAreaView
+                style={{
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                  alignItems: "flex-start",
+                }}
+              >
                 <Text
                   style={{
                     color: Color.bleu_foncé,
                     textAlign: "left",
-                    fontFamily: "Poppins-Medium",
-                    fontSize: 17,
+                    fontSize: 16,
                     padding: "4%",
                   }}
                 >
@@ -473,17 +535,22 @@ function SoumettreOffre({ navigation, route }) {
                 </Text>
                 <TextInput
                   style={styles.innerdrop2}
-                  placeholder="Prix      DA"
+                  value={formData.prix}
+                  placeholder="Prix DA"
                   onChangeText={(text) => {
                     onChangeField("prix", text);
                   }}
                   keyboardType={"numeric"}
                 />
+              </SafeAreaView>
+              <SafeAreaView>
                 <Text
                   style={{
                     color: "red",
                     textAlign: "left",
-                    paddingVertical: "3%",
+                    fontSize: 13,
+                    paddingHorizontal: 15,
+                    paddingTop: 5,
                   }}
                 >
                   {!formData.prix && clicked ? "indiquez le prix" : ""}
@@ -505,15 +572,14 @@ function SoumettreOffre({ navigation, route }) {
                   alignItems: "center",
                   position: "absolute",
                   right: "0%",
-                  top: "85%",
+                  top: HEIGHT / 1.8,
                 }}
               >
                 <Text
                   style={{
                     color: Color.blanc,
                     textAlign: "left",
-                    fontFamily: "Poppins-Medium",
-                    fontSize: 17,
+                    fontSize: 16,
                     padding: "7%",
                   }}
                 >
@@ -528,9 +594,6 @@ function SoumettreOffre({ navigation, route }) {
       }
 
       {/***************************************************************************** */}
-      {/*<Footer />*/}
-      {/***************************************************************************** */}
-      {/*<MenuGauche />*/}
       {/*End of Content*/}
     </SafeAreaView>
   );
@@ -556,7 +619,7 @@ const styles = StyleSheet.create({
     paddingTop: "1%",
   },
   innerdrop: {
-    width: 280,
+    width: 200,
     marginHorizontal: "4%",
     height: 50,
     backgroundColor: Color.gris_background,
@@ -567,7 +630,7 @@ const styles = StyleSheet.create({
     marginBottom: "2%",
   },
   innerdrop2: {
-    width: 280,
+    width: 240,
     marginHorizontal: "4%",
     paddingHorizontal: 20,
     height: 50,
@@ -576,7 +639,6 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     justifyContent: "flex-start",
     alignItems: "center",
-    marginBottom: "5%",
   },
   searchicon: {
     backgroundColor: Color.vert,
@@ -602,6 +664,8 @@ const styles = StyleSheet.create({
     shadowColor: Color.gris_gris,
     shadowOpacity: 0.4,
     margin: "5%",
+    paddingVertical: 25,
+    paddingHorizontal: 10,
   },
   formcontainer2: {
     backgroundColor: Color.blanc,
@@ -618,7 +682,4 @@ const styles = StyleSheet.create({
 
 export default SoumettreOffre;
 
-/**import { Dimensions } from "react-native";
-
-export const WIDTH = Dimensions.get("window").width;
-export const HEIGHT = Dimensions.get("window").height; */
+/** */
