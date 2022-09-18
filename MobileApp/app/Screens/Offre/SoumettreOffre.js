@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback, useState } from "react";
+import React, { useState } from "react";
 import {
   SafeAreaView,
   Text,
@@ -15,9 +15,8 @@ import Localisation from "../../Data/Localisation.json";
 import SelectDropdown from "react-native-select-dropdown";
 import { Dimensions } from "react-native";
 import { RadioButton } from "react-native-paper";
-
-export const WIDTH = Dimensions.get("window").width;
-export const HEIGHT = Dimensions.get("window").height;
+import { SCREEN_HEIGHT } from "./Home";
+import { SCREEN_WIDTH } from "./Home";
 
 function SoumettreOffre({ navigation, route }) {
   //Declaration des variables
@@ -395,7 +394,7 @@ function SoumettreOffre({ navigation, route }) {
                 alignItems: "center",
                 position: "absolute",
                 right: "0%",
-                top: HEIGHT / 1.6,
+                top: SCREEN_HEIGHT / 1.6,
               }}
             >
               <Text
@@ -572,7 +571,7 @@ function SoumettreOffre({ navigation, route }) {
                   alignItems: "center",
                   position: "absolute",
                   right: "0%",
-                  top: HEIGHT / 1.8,
+                  top: SCREEN_HEIGHT / 1.8,
                 }}
               >
                 <Text
@@ -605,6 +604,8 @@ const styles = StyleSheet.create({
   bigcontainer: {
     flex: 1,
     backgroundColor: Color.gris_background,
+    height: SCREEN_HEIGHT,
+    width: SCREEN_WIDTH,
   },
 
   lefticon: {

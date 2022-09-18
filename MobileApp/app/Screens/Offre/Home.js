@@ -10,6 +10,9 @@ import {
   SectionList,
   View,
   RefreshControl,
+  Alert,
+  Modal,
+  Pressable,
 } from "react-native";
 
 import { SearchBar } from "react-native-elements";
@@ -20,8 +23,6 @@ import qualité from "../../Data/qualité.json";
 import Localisation from "../../Data/Localisation.json";
 import SelectDropdown from "react-native-select-dropdown";
 import elements from "../../Data/elements.json";
-
-import PaginationDot from "react-native-animated-pagination-dot";
 
 import { Dimensions } from "react-native";
 
@@ -35,7 +36,16 @@ function Home({ navigation, route }) {
   ///////////////////////////////////////////////
 
   const screenName = route.name;
-
+  const [modalVisible, setModalVisible] = useState(false);
+  const [modaldata, setmodaldata] = useState({
+    title: "",
+    mat: "",
+    localisation: "",
+    qualité: "",
+    livraison: "",
+    photo: "",
+    id_user: "",
+  });
   const [searchdata, setsearchdata] = useState(elements);
   const [searchValue, setsearchValue] = useState("");
   const [refreshing, setRefreshing] = useState(false);
@@ -103,9 +113,23 @@ function Home({ navigation, route }) {
     photo,
     favorie,
   }) => {
-    const [fav, setfav] = useState(favorie === 0 ? true : false);
+    const [fav, setfav] = useState(favorie === 0 ? false : true);
     return (
-      <TouchableOpacity style={styles.item}>
+      <TouchableOpacity
+        style={styles.item}
+        onPress={() => {
+          setModalVisible(true);
+          setmodaldata({
+            title: title,
+            mat: mat,
+            localisation: localisation,
+            qualité: qualité,
+            livraison: livraison,
+            photo: photo,
+            favorie: favorie,
+          });
+        }}
+      >
         <SafeAreaView
           style={{
             width: "60%",
@@ -446,7 +470,108 @@ function Home({ navigation, route }) {
         </SafeAreaView>
       </View>
 
-      {/****************************Load more btn************************************ */}
+      {/****************************pop up screen************************************ */}
+
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+          Alert.alert("Modal has been closed.");
+          setModalVisible(false);
+        }}
+      >
+        <View style={styles.centeredView}>
+          <View style={styles.modalView}>
+            <TouchableOpacity
+              style={{
+                flexDirection: "row",
+                justifyContent: "flex-end",
+                alignContent: "center",
+              }}
+              onPress={() => setModalVisible(false)}
+            >
+              <Icon name="close" size={20} />
+            </TouchableOpacity>
+            <SafeAreaView>
+              <Text style={styles.modalText}>
+                {modaldata.mat.slice(0, 1).toUpperCase() +
+                  modaldata.mat.slice(1)}
+              </Text>
+              <SafeAreaView
+                style={{
+                  paddingHorizontal: 20,
+                  flexDirection: "row",
+                  justifyContent: "center",
+                  alignContent: "center",
+                }}
+              >
+                <Image
+                  style={{ width: 200, height: 120, borderRadius: 15 }}
+                  source={require("../../../assets/garbage.jpg")}
+                />
+              </SafeAreaView>
+              <SafeAreaView style={{ marginTop: 30, marginLeft: 20 }}>
+                <SafeAreaView
+                  style={{
+                    flexDirection: "row",
+                    justifyContent: "flex-start",
+                    alignContent: "center",
+                  }}
+                >
+                  <Text style={styles.modalText}>Société:{"   "}</Text>
+                  <Text style={styles.modalText2}>
+                    {modaldata.title.slice(0, 1).toUpperCase() +
+                      modaldata.title.slice(1)}
+                  </Text>
+                </SafeAreaView>
+                <SafeAreaView
+                  style={{
+                    flexDirection: "row",
+                    justifyContent: "flex-start",
+                    alignContent: "center",
+                  }}
+                >
+                  <Text style={styles.modalText}>
+                    Qualité du matériel:{"   "}
+                  </Text>
+                  <Text style={styles.modalText2}>
+                    {modaldata.qualité.slice(0, 1).toUpperCase() +
+                      modaldata.qualité.slice(1)}
+                  </Text>
+                </SafeAreaView>
+                <SafeAreaView
+                  style={{
+                    flexDirection: "row",
+                    justifyContent: "flex-start",
+                    alignContent: "center",
+                  }}
+                >
+                  <Text style={styles.modalText}>Localisation:{"   "}</Text>
+                  <Text style={styles.modalText2}>
+                    {modaldata.localisation.slice(0, 1).toUpperCase() +
+                      modaldata.localisation.slice(1)}
+                  </Text>
+                </SafeAreaView>
+                <SafeAreaView
+                  style={{
+                    flexDirection: "row",
+                    justifyContent: "flex-start",
+                    alignContent: "center",
+                  }}
+                >
+                  <Text style={styles.modalText}>Livraison:{"   "}</Text>
+
+                  <Text style={styles.modalText2}>
+                    {modaldata.livraison.slice(0, 1).toUpperCase() +
+                      modaldata.livraison.slice(1)}
+                  </Text>
+                </SafeAreaView>
+              </SafeAreaView>
+            </SafeAreaView>
+          </View>
+        </View>
+      </Modal>
       {/***************************************************************************** */}
       {/*End of Content*/}
     </SafeAreaView>
@@ -459,6 +584,8 @@ const styles = StyleSheet.create({
   bigcontainer: {
     flex: 1,
     backgroundColor: Color.gris_background,
+    height: SCREEN_HEIGHT,
+    width: SCREEN_WIDTH,
   },
 
   innerdrop: {
@@ -500,6 +627,47 @@ const styles = StyleSheet.create({
     color: "rgba(255, 255, 255, 0.5)",
     marginTop: 5,
   },
+  centeredView: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 22,
+  },
+  modalView: {
+    margin: 20,
+    backgroundColor: "white",
+    borderRadius: 20,
+    padding: 15,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+    width: SCREEN_WIDTH / 1.2,
+    height: SCREEN_HEIGHT / 2,
+  },
+  textStyle: {
+    color: "white",
+    fontWeight: "bold",
+    textAlign: "center",
+  },
+  modalText: {
+    marginBottom: 15,
+    textAlign: "center",
+    color: Color.bleu_foncé,
+    fontSize: 16,
+    fontWeight: "bold",
+  },
+  modalText2: {
+    marginBottom: 15,
+
+    color: Color.bleu_foncé,
+    fontSize: 14,
+    fontWeight: "normal",
+  },
 });
 
 //////////////
@@ -525,3 +693,19 @@ const [refreshing, setRefreshing] = useState(false);
   getDemands();
     setRefreshing(false);
   }, []); */
+/* id_offer
+  uuid_offer
+  uuid_mtr
+  weight_offer
+  id_entreprise
+  uuid_user
+  price_offer
+  quantity_offer
+  unit_offer
+  valid_til__offer
+  volume_offer
+  is_delivery_offer
+  can_mail
+  description
+  code_postal
+  date_enreg*/

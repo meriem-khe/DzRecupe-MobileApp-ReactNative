@@ -14,18 +14,10 @@ import { Color } from "../../../Config/Colors";
 import Icon from "react-native-vector-icons/FontAwesome";
 import elements from "../../Data/elements.json";
 import { Dimensions } from "react-native";
-import { SCREEN_HEIGHT } from "./Home";
 import { SCREEN_WIDTH } from "./Home";
+import { SCREEN_HEIGHT } from "./Home";
 
-function MesFavories(/** condition type de compte */) {
-  /** quand je ramène les données je n'est qu'à changer elements c'est tt searchdata je touche pas */
-  /** Ces données vont dépondre de ce que je dois afficher , demmandes ou offres */
-  /***je pourrais garder les memes pages pour les 3 types de compte , je dois juste rajouter des conditions */
-  /***pour voir quel type de donnee à afficher */
-
-  //Declaration des variables
-  //////////
-
+function MesOffres({ navigation }) {
   const [searchdata, setsearchdata] = useState(elements);
   const [searchValue, setsearchValue] = useState("");
   const [refreshing, setRefreshing] = useState(false);
@@ -35,33 +27,14 @@ function MesFavories(/** condition type de compte */) {
   const wait = (timeout) => {
     return new Promise((resolve) => setTimeout(resolve, timeout));
   };
-
+  const id_user_actif = 1;
   //Declaration des fonctions
   //////////////////////////////////////////////////////////////
-
-  const renderItem = ({ item }) => (
-    <Item
-      title={item.title}
-      mat={item.mat}
-      localisation={item.localisation}
-      qualité={item.qualité}
-      livraison={item.livraison}
-      photo={item.photo}
-      favorie={item.favorie}
-    />
-  );
-  const Item = ({
-    title,
-    mat,
-    localisation,
-    qualité,
-    livraison,
-    photo,
-    favorie,
-  }) => {
+  const renderItem = ({ item }) => <Item item={item} />;
+  const Item = ({ item }) => {
     return (
       <SafeAreaView>
-        {favorie === 1 ? (
+        {item.id_user === id_user_actif ? (
           <TouchableOpacity style={styles.item}>
             <SafeAreaView
               style={{
@@ -82,7 +55,7 @@ function MesFavories(/** condition type de compte */) {
                   paddingBottom: "5%",
                 }}
               >
-                {title.slice(0, 1).toUpperCase() + title.slice(1)}
+                {item.title.slice(0, 1).toUpperCase() + item.title.slice(1)}
               </Text>
               <SafeAreaView
                 style={{
@@ -99,7 +72,7 @@ function MesFavories(/** condition type de compte */) {
                     fontSize: 13,
                   }}
                 >
-                  {mat.slice(0, 1).toUpperCase() + mat.slice(1)}
+                  {item.mat.slice(0, 1).toUpperCase() + item.mat.slice(1)}
                 </Text>
                 <Text
                   style={{
@@ -107,7 +80,8 @@ function MesFavories(/** condition type de compte */) {
                     fontSize: 13,
                   }}
                 >
-                  {qualité.slice(0, 1).toUpperCase() + qualité.slice(1)}
+                  {item.qualité.slice(0, 1).toUpperCase() +
+                    item.qualité.slice(1)}
                 </Text>
               </SafeAreaView>
               <SafeAreaView
@@ -134,12 +108,12 @@ function MesFavories(/** condition type de compte */) {
                       fontSize: 13,
                     }}
                   >
-                    {localisation.slice(0, 1).toUpperCase() +
-                      localisation.slice(1)}
+                    {item.localisation.slice(0, 1).toUpperCase() +
+                      item.localisation.slice(1)}
                   </Text>
                 </SafeAreaView>
 
-                {livraison === "oui" ? (
+                {item.livraison === "oui" ? (
                   <Text style={{ color: Color.vert }}>
                     Livraison disponible
                   </Text>
@@ -148,9 +122,16 @@ function MesFavories(/** condition type de compte */) {
                 )}
               </SafeAreaView>
             </SafeAreaView>
-            <SafeAreaView style={{ paddingRight: 40, paddingBottom: 90 }}>
-              <Icon name="heart" size={20} color={Color.gris_gris} />
-            </SafeAreaView>
+
+            <TouchableOpacity
+              style={{ paddingRight: 45, paddingBottom: 90 }}
+              onPress={() => {
+                navigation.navigate("EditOffre", { OffreInfo: item });
+                alert("ça marche");
+              }}
+            >
+              <Icon name="edit" size={20} color={Color.bleu_foncé} />
+            </TouchableOpacity>
           </TouchableOpacity>
         ) : (
           <SafeAreaView />
@@ -203,7 +184,7 @@ function MesFavories(/** condition type de compte */) {
           padding: "4%",
         }}
       >
-        Mes favories
+        Mes offres
       </Text>
       {/***************************************************************************** */}
 
@@ -284,7 +265,6 @@ function MesFavories(/** condition type de compte */) {
     </SafeAreaView>
   );
 }
-
 const styles = StyleSheet.create({
   bigcontainer: {
     flex: 1,
@@ -312,5 +292,4 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
 });
-
-export default MesFavories;
+export default MesOffres;

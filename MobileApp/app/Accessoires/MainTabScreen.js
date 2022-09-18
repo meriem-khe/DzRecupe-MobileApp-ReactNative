@@ -9,6 +9,8 @@ import SoumettreOffre from "../Screens/Offre/SoumettreOffre";
 import Map from "../Screens/Offre/Map";
 import Notification from "../Screens/Commun/Notification";
 import MesFavories from "../Screens/Offre/MesFavories";
+import MesOffres from "../Screens/Offre/MesOffres";
+import EditOffre from "../Screens/Offre/EditOffre";
 
 import { Color } from "../../Config/Colors";
 
@@ -99,6 +101,36 @@ const HomeStackScreen = ({ navigation }) => (
       component={MesFavories}
       options={{
         title: "Mes Favories",
+        headerLeft: () => (
+          <Icon.Button
+            name="bars"
+            size={25}
+            backgroundColor={Color.bleu_foncé}
+            onPress={() => navigation.openDrawer()}
+          ></Icon.Button>
+        ),
+      }}
+    />
+    <HomeStack.Screen
+      name="MesOffres"
+      component={MesOffres}
+      options={{
+        title: "Mes offres",
+        headerLeft: () => (
+          <Icon.Button
+            name="bars"
+            size={25}
+            backgroundColor={Color.bleu_foncé}
+            onPress={() => navigation.openDrawer()}
+          ></Icon.Button>
+        ),
+      }}
+    />
+    <HomeStack.Screen
+      name="EditOffre"
+      component={EditOffre}
+      options={{
+        title: "Editer offre",
         headerLeft: () => (
           <Icon.Button
             name="bars"

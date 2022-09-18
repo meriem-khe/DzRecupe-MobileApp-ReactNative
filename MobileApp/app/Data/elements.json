@@ -7,7 +7,9 @@
       "qualité":"1 er choix",
       "livraison":"oui",
       "photo":"asset:/garbage.jpg",
-      "favorie":1
+      "favorie":1,
+      "id_user":1, "poids": 1200,
+      "prix":20000
     },{
       "id": "2",
       "title": "Société B",
@@ -16,7 +18,9 @@
       "qualité":"1 er choix",
       "photo":"asset:/garbage.jpg",
       "livraison":"oui",
-      "favorie":0
+      "favorie":0,
+      "id_user":1, "poids": 1200,
+      "prix":20000
     },
     {
       "id": "3",
@@ -26,7 +30,9 @@
        "qualité":"2 ème choix",
        "photo":"asset:/garbage.jpg",
        "livraison":"non",
-       "favorie":1
+       "favorie":1,
+       "id_user":1, "poids": 1200,
+       "prix":20000
     },
      {
       "id": "4",
@@ -36,7 +42,9 @@
      "qualité":"2 ème choix",
      "photo":"asset:/garbage.jpg",
      "livraison":"non",
-     "favorie":1
+     "favorie":1,
+     "id_user":4, "poids": 1200,
+     "prix":20000
     }
     ,
      {
@@ -47,7 +55,9 @@
      "qualité":"2 ème choix",
      "photo":"asset:/garbage.jpg",
      "livraison":"non",
-     "favorie":1
+     "favorie":1,
+     "id_user":2, "poids": 1200,
+     "prix":20000
     }
     ,
      {
@@ -58,7 +68,9 @@
      "qualité":"2 ème choix",
      "photo":"asset:/garbage.jpg",
      "livraison":"non",
-     "favorie":1
+     "favorie":1,
+     "id_user":4, "poids": 1200,
+     "prix":20000
     }
     ,
      {
@@ -69,7 +81,9 @@
      "qualité":"2 ème choix",
      "photo":"asset:/garbage.jpg",
      "livraison":"non",
-     "favorie":1
+     "favorie":1,
+     "id_user":1, "poids": 1200,
+     "prix":20000
     }
     ,
      {
@@ -80,7 +94,9 @@
      "qualité":"2 ème choix",
      "photo":"asset:/garbage.jpg",
      "livraison":"non",
-     "favorie":1
+     "favorie":1,
+     "id_user":1, "poids": 1200,
+     "prix":20000
     }
     ,
      {
@@ -91,7 +107,9 @@
      "qualité":"2 ème choix",
      "photo":"asset:/garbage.jpg",
      "livraison":"non",
-     "favorie":1
+     "favorie":1,
+     "id_user":2, "poids": 1200,
+     "prix":20000
     }
     ,
      {
@@ -102,7 +120,9 @@
      "qualité":"2 ème choix",
      "photo":"asset:/garbage.jpg",
      "livraison":"non",
-     "favorie":1
+     "favorie":1,
+     "id_user":4, "poids": 1200,
+     "prix":20000
     }
     ,
      {
@@ -113,7 +133,9 @@
      "qualité":"2 ème choix",
      "photo":"asset:/garbage.jpg",
      "livraison":"non",
-     "favorie":1
+     "favorie":1,
+     "id_user":3, "poids": 1200,
+     "prix":20000
     }
     ,
      {
@@ -124,7 +146,9 @@
      "qualité":"2 ème choix",
      "photo":"asset:/garbage.jpg",
      "livraison":"non",
-     "favorie":1
+     "favorie":1,
+     "id_user":2, "poids": 1200,
+     "prix":20000
     }
     ,
      {
@@ -135,7 +159,9 @@
      "qualité":"2 ème choix",
      "photo":"asset:/garbage.jpg",
      "livraison":"non",
-     "favorie":1
+     "favorie":1,
+     "id_user":1, "poids": 1200,
+     "prix":20000
     }
     ,
      {
@@ -146,7 +172,9 @@
      "qualité":"2 ème choix",
      "photo":"asset:/garbage.jpg",
      "livraison":"non",
-     "favorie":1
+     "favorie":1,
+     "id_user":1, "poids": 1200,
+     "prix":20000
     }
     ,
      {
@@ -157,7 +185,9 @@
      "qualité":"2 ème choix",
      "photo":"asset:/garbage.jpg",
      "livraison":"non",
-     "favorie":1
+     "favorie":1,
+     "id_user":3, "poids": 1200,
+     "prix":20000
     }
     ,
      {
@@ -168,7 +198,9 @@
      "qualité":"2 ème choix",
      "photo":"asset:/garbage.jpg",
      "livraison":"non",
-     "favorie":1
+     "favorie":1,
+     "id_user":4, "poids": 1200,
+     "prix":20000
     }
     ,
      {
@@ -179,7 +211,9 @@
      "qualité":"2 ème choix",
      "photo":"asset:/garbage.jpg",
      "livraison":"non",
-     "favorie":1
+     "favorie":1,
+     "id_user":1, "poids": 1200,
+     "prix":20000
     }
     ,
      {
@@ -190,7 +224,9 @@
      "qualité":"2 ème choix",
      "photo":"asset:/garbage.jpg",
      "livraison":"non",
-     "favorie":1
+     "favorie":1,
+     "id_user":3, "poids": 1200,
+     "prix":20000
     }
     ,
      {
@@ -201,7 +237,9 @@
      "qualité":"2 ème choix",
      "photo":"asset:/garbage.jpg",
      "livraison":"non",
-     "favorie":1
+     "favorie":1,
+     "id_user":1, "poids": 1200,
+     "prix":20000
     }
     ,
      {
@@ -212,7 +250,9 @@
      "qualité":"2 ème choix",
      "photo":"asset:/garbage.jpg",
      "livraison":"non",
-     "favorie":1
+     "favorie":1,
+     "id_user":4, "poids": 1200,
+     "prix":20000
     }
     ,
      {
@@ -223,6 +263,12 @@
      "qualité":"2 ème choix",
      "photo":"asset:/garbage.jpg",
      "livraison":"non",
-     "favorie":1
+     "favorie":1,
+     "id_user":2,
+     "poids": 1200,
+   "prix":20000
     }
+   
   ]
+
+ 
