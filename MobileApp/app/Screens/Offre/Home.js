@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { StatusBar } from "expo-status-bar";
 import {
   SafeAreaView,
@@ -18,9 +18,9 @@ import {
 import { SearchBar } from "react-native-elements";
 import { Color } from "../../../Config/Colors";
 import Icon from "react-native-vector-icons/FontAwesome";
-import matière from "../../Data/matière.json";
-import qualité from "../../Data/qualité.json";
-import Localisation from "../../Data/Localisation.json";
+//import matière from "../../Data/matière.json";
+//import qualité from "../../Data/qualité.json";
+//import Localisation from "../../Data/Localisation.json";
 import SelectDropdown from "react-native-select-dropdown";
 import elements from "../../Data/elements.json";
 
@@ -32,6 +32,68 @@ export const SCREEN_HEIGHT = Dimensions.get("window").height;
 //import ReactPaginate from "react-paginate";
 
 function Home({ navigation, route }) {
+  //Backend link
+  //////////////
+  const [qualité, setqualité] = useState([]);
+  const [matière, setmatière] = useState([]);
+  const [willaya, setwillaya] = useState([]);
+  const [offer, setoffer] = useState([]);
+  ///////////////////////
+  useEffect(() => {
+    const fetchQualité = async () => {
+      try {
+        const response = await fetch(
+          "https://www.tiwsal.dz/DzRecupe2022/Mobile/Android/GetAll.php?param=qualité"
+        );
+        const json = await response.json();
+        setqualité(json);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    const fetchOffres = async () => {
+      try {
+        const response = await fetch(
+          "https://www.tiwsal.dz/DzRecupe2022/Mobile/Android/GetAll.php?param=offre"
+        );
+        const json = await response.json();
+        setoffer(json);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    const fetchmatière = async () => {
+      try {
+        const response = await fetch(
+          "https://www.tiwsal.dz/DzRecupe2022/Mobile/Android/GetAll.php?param=matière"
+        );
+        const json = await response.json();
+        setmatière(json);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    const fetchwilaya = async () => {
+      try {
+        const response = await fetch(
+          "https://www.tiwsal.dz/DzRecupe2022/Mobile/Android/GetAll.php?param=wilaya"
+        );
+        const json = await response.json();
+        setwillaya(json);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchQualité();
+    fetchOffres();
+    fetchmatière();
+    fetchwilaya();
+  }, []);
+  console.log(qualité);
+  console.log(offer);
+  console.log(willaya);
+  console.log(matière);
   //Declaration des variables
   ///////////////////////////////////////////////
 
@@ -62,21 +124,21 @@ function Home({ navigation, route }) {
     {
       key: "1",
       text: "Item text 1",
-      data: ["bois", "ferreux", "plastique", "papier"],
+      data: matière,
       search: false,
       name: "matière",
     },
     {
       key: "2",
       text: "Item text 2",
-      data: ["1 er choix", "2 ème choix", "3 ème choix"],
+      data: qualité,
       search: false,
       name: "qualité",
     },
     {
       key: "3",
       text: "Item text 3",
-      data: ["Alger", "Boumerdes", "Tizi Ouzou", "Blida"],
+      data: willaya,
       search: true,
       name: "localisation",
     },

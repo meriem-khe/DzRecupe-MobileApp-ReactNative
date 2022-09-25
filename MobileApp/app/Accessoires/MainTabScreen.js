@@ -11,6 +11,7 @@ import Notification from "../Screens/Commun/Notification";
 import MesFavories from "../Screens/Offre/MesFavories";
 import MesOffres from "../Screens/Offre/MesOffres";
 import EditOffre from "../Screens/Offre/EditOffre";
+import Profile from "../Screens/Commun/Profile";
 
 import { Color } from "../../Config/Colors";
 
@@ -18,6 +19,7 @@ const HomeStack = createStackNavigator();
 const NotifStack = createStackNavigator();
 const SoumettreOffreStack = createStackNavigator();
 const MapStack = createStackNavigator();
+const ProfileStack = createStackNavigator();
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -131,6 +133,21 @@ const HomeStackScreen = ({ navigation }) => (
       component={EditOffre}
       options={{
         title: "Editer offre",
+        headerLeft: () => (
+          <Icon.Button
+            name="bars"
+            size={25}
+            backgroundColor={Color.bleu_foncé}
+            onPress={() => navigation.openDrawer()}
+          ></Icon.Button>
+        ),
+      }}
+    />
+    <HomeStack.Screen
+      name="Profile"
+      component={Profile}
+      options={{
+        title: "Mon compte",
         headerLeft: () => (
           <Icon.Button
             name="bars"
