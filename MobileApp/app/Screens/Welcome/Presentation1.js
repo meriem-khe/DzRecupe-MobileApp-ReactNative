@@ -10,7 +10,7 @@ import {
 } from "react-native";
 import { Color } from "../../../Config/Colors";
 import Icon from "react-native-vector-icons/FontAwesome";
-
+//si il y a quelque chose à changer ici ça peut etre le style et rien d'autre
 function Presentation1({ navigation }) {
   return (
     <View style={styles.container}>

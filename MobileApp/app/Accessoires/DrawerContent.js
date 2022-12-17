@@ -15,7 +15,9 @@ import { DrawerContentScrollView, DrawerItem } from "@react-navigation/drawer";
 
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { Color } from "../../Config/Colors";
-
+/*****************************************EXPLICATION********************************************** */
+//le contenu du menu gauche avec tout les liens possibles
+////////////////////////////////////////////////////////////////////////////////////////////////////////
 export function DrawerContent(props) {
   const Num = "+213 557956402";
 

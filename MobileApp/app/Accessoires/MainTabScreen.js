@@ -12,7 +12,9 @@ import MesFavories from "../Screens/Offre/MesFavories";
 import MesOffres from "../Screens/Offre/MesOffres";
 import EditOffre from "../Screens/Offre/EditOffre";
 import Profile from "../Screens/Commun/Profile";
-
+/*****************************************EXPLICATION********************************************** */
+//this is the bottom menu with all possible links
+////////////////////////////////////////////////////////////////////////////////////////////////////////
 import { Color } from "../../Config/Colors";
 
 const HomeStack = createStackNavigator();

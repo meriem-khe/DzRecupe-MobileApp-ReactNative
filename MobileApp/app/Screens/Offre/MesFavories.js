@@ -18,6 +18,7 @@ import { SCREEN_HEIGHT } from "./Home";
 import { SCREEN_WIDTH } from "./Home";
 
 function MesFavories(/** condition type de compte */) {
+  /*****************************************EXPLICATION********************************************** */
   /** quand je ramène les données je n'est qu'à changer elements c'est tt searchdata je touche pas */
   /** Ces données vont dépondre de ce que je dois afficher , demmandes ou offres */
   /***je pourrais garder les memes pages pour les 3 types de compte , je dois juste rajouter des conditions */

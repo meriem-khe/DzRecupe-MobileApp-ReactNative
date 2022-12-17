@@ -19,6 +19,15 @@ import { SCREEN_HEIGHT } from "./Home";
 import { SCREEN_WIDTH } from "./Home";
 
 function EditOffre({ route, navigation }) {
+  /*****************************************EXPLICATION********************************************** */
+  //on peut rendre cette page dynamique : on rajoute un useeffect et on ramene les données de la bdd
+  //à la place des données statiques matière , livraison, localisation,et qualité
+  //tout comme dans la page soumettre offre
+  //petite difference c'est que il faut ramener les vrais données de l'offre que je veux éditer(c'est fait)
+
+  /////////les erreurs syntaxique sans vérifiées , les champs obligatoires aussi
+  ////////il reste que comment enregistrer les modifications faites sur l'offre dans la bdd(fonction backend à implémenter)
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////
   const { OffreInfo } = route.params;
   console.log(OffreInfo);
   const [clicked, setclicked] = useState(false);

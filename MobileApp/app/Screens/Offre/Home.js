@@ -1,3 +1,7 @@
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/**************************Il n y a que cette page Home à qui j'ai fait l'integration avec le backend********************** */
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 import React, { useState, useEffect } from "react";
 import { StatusBar } from "expo-status-bar";
 import {
@@ -12,38 +16,49 @@ import {
   RefreshControl,
   Alert,
   Modal,
-  Pressable,
 } from "react-native";
 
 import { SearchBar } from "react-native-elements";
 import { Color } from "../../../Config/Colors";
 import Icon from "react-native-vector-icons/FontAwesome";
-//import matière from "../../Data/matière.json";
-//import qualité from "../../Data/qualité.json";
-//import Localisation from "../../Data/Localisation.json";
 import SelectDropdown from "react-native-select-dropdown";
-import elements from "../../Data/elements.json";
-
 import { Dimensions } from "react-native";
-
 export const SCREEN_WIDTH = Dimensions.get("window").width;
 export const SCREEN_HEIGHT = Dimensions.get("window").height;
 
-//import ReactPaginate from "react-paginate";
-
 function Home({ navigation, route }) {
-  //Backend link
-  //////////////
   const [qualité, setqualité] = useState([]);
   const [matière, setmatière] = useState([]);
   const [willaya, setwillaya] = useState([]);
   const [offer, setoffer] = useState([]);
+  const [searchdata, setsearchdata] = useState([]);
+
+  const [itemsearch, setitemsearch] = useState({
+    //il manque que favoris: "",
+    Nom_entreprise: "",
+    name_mtr: "", //matière
+    text: "", //qualité
+    design_wilaya: "", //wilaya
+    nom_com: "", //commune
+    is_delivery_offer: "",
+    description: "",
+    is_pickup_offer: "",
+    valid_til__offer: "",
+    volume_offer: "",
+    quantity_offer: "",
+    price_offer: "",
+    weight_offer: "",
+  });
+
+  /******implémentation des fonctions d'integration avec le backend****** */
+
   ///////////////////////
   useEffect(() => {
+    //ramener la table des qualités pour le filtre
     const fetchQualité = async () => {
       try {
         const response = await fetch(
-          "https://www.tiwsal.dz/DzRecupe2022/Mobile/Android/GetAll.php?param=qualité"
+          "https://www.tiwsal.dz/DzRecupe2022/Mobile/Android/Mobile_Api.php?qualite"
         );
         const json = await response.json();
         setqualité(json);
@@ -51,21 +66,25 @@ function Home({ navigation, route }) {
         console.error(error);
       }
     };
+    //ramener la table des offres
     const fetchOffres = async () => {
       try {
         const response = await fetch(
-          "https://www.tiwsal.dz/DzRecupe2022/Mobile/Android/GetAll.php?param=offre"
+          "https://www.tiwsal.dz/DzRecupe2022/Mobile/Android/Mobile_Api.php?offre"
         );
         const json = await response.json();
-        setoffer(json);
+        console.log(json);
+        setoffer([json]);
+        setsearchdata([json]);
       } catch (error) {
         console.error(error);
       }
     };
+    //ramener la table des matières pour le filtre
     const fetchmatière = async () => {
       try {
         const response = await fetch(
-          "https://www.tiwsal.dz/DzRecupe2022/Mobile/Android/GetAll.php?param=matière"
+          "https://www.tiwsal.dz/DzRecupe2022/Mobile/Android/Mobile_Api.php?matiere"
         );
         const json = await response.json();
         setmatière(json);
@@ -73,10 +92,11 @@ function Home({ navigation, route }) {
         console.error(error);
       }
     };
+    //ramener la table des wilaya pour le filtre
     const fetchwilaya = async () => {
       try {
         const response = await fetch(
-          "https://www.tiwsal.dz/DzRecupe2022/Mobile/Android/GetAll.php?param=wilaya"
+          "https://www.tiwsal.dz/DzRecupe2022/Mobile/Android/Mobile_Api.php?wilaya"
         );
         const json = await response.json();
         setwillaya(json);
@@ -90,25 +110,19 @@ function Home({ navigation, route }) {
     fetchmatière();
     fetchwilaya();
   }, []);
-  console.log(qualité);
-  console.log(offer);
-  console.log(willaya);
-  console.log(matière);
-  //Declaration des variables
-  ///////////////////////////////////////////////
 
-  const screenName = route.name;
+  // const screenName = route.name;
   const [modalVisible, setModalVisible] = useState(false);
   const [modaldata, setmodaldata] = useState({
-    title: "",
-    mat: "",
-    localisation: "",
-    qualité: "",
-    livraison: "",
-    photo: "",
-    id_user: "",
+    Nom_entreprise: "",
+    name_mtr: "",
+    design_wilaya: "",
+    nom_com: "",
+    text: "",
+    is_delivery_offer: "",
+    photo: null,
+    favorie: "",
   });
-  const [searchdata, setsearchdata] = useState(elements);
   const [searchValue, setsearchValue] = useState("");
   const [refreshing, setRefreshing] = useState(false);
   const [Numpage, setNumpage] = useState(1);
@@ -165,30 +179,37 @@ function Home({ navigation, route }) {
 
   //Declaration des fonctions
   //////////////////////////////////////////////////////////////
-
+  //Item c'est l'element qui va définir le style d'affichage d'une offre
   const Item = ({
-    title,
-    mat,
-    localisation,
-    qualité,
-    livraison,
-    photo,
-    favorie,
+    Nom_entreprise,
+    name_mtr, //matière
+    text, //qualité
+    design_wilaya, //wilaya
+    nom_com, //commune
+    is_delivery_offer,
+    description,
+    is_pickup_offer,
+    valid_til__offer,
+    volume_offer,
+    quantity_offer,
+    price_offer,
+    weight_offer,
   }) => {
-    const [fav, setfav] = useState(favorie === 0 ? false : true);
+    const [fav, setfav] = useState(true); //à changer : on ramène cette donnée de la bdd
     return (
       <TouchableOpacity
         style={styles.item}
         onPress={() => {
           setModalVisible(true);
           setmodaldata({
-            title: title,
-            mat: mat,
-            localisation: localisation,
-            qualité: qualité,
-            livraison: livraison,
-            photo: photo,
-            favorie: favorie,
+            Nom_entreprise: Nom_entreprise,
+            name_mtr: name_mtr,
+            design_wilaya: design_wilaya,
+            nom_com: nom_com,
+            text: text,
+            is_delivery_offer: is_delivery_offer,
+            photo: " photo", //la photo aussi c'est statique pour le moment
+            favorie: fav,
           });
         }}
       >
@@ -211,7 +232,7 @@ function Home({ navigation, route }) {
               paddingBottom: "5%",
             }}
           >
-            {title.slice(0, 1).toUpperCase() + title.slice(1)}
+            {Nom_entreprise.slice(0, 1).toUpperCase() + Nom_entreprise.slice(1)}
           </Text>
           <SafeAreaView
             style={{
@@ -228,7 +249,7 @@ function Home({ navigation, route }) {
                 fontSize: 13,
               }}
             >
-              {mat.slice(0, 1).toUpperCase() + mat.slice(1)}
+              {name_mtr.slice(0, 1).toUpperCase() + name_mtr.slice(1)}
             </Text>
             <Text
               style={{
@@ -236,7 +257,7 @@ function Home({ navigation, route }) {
                 fontSize: 13,
               }}
             >
-              {qualité.slice(0, 1).toUpperCase() + qualité.slice(1)}
+              {text.slice(0, 1).toUpperCase() + text.slice(1)}
             </Text>
           </SafeAreaView>
           <SafeAreaView
@@ -263,11 +284,12 @@ function Home({ navigation, route }) {
                   fontSize: 13,
                 }}
               >
-                {localisation.slice(0, 1).toUpperCase() + localisation.slice(1)}
+                {design_wilaya.slice(0, 1).toUpperCase() +
+                  design_wilaya.slice(1)}
               </Text>
             </SafeAreaView>
 
-            {livraison === "oui" ? (
+            {is_delivery_offer === 1 ? (
               <Text style={{ color: Color.vert }}>Livraison disponible</Text>
             ) : (
               <Text style={{ color: "red" }}>Livraison non disponible</Text>
@@ -371,34 +393,40 @@ function Home({ navigation, route }) {
       </View>
     );
   };
+
+  ///la fonction de recherche et de filtrage
   const searchFunction = (text) => {
     if (text) {
       const newData = searchdata.filter(function (item) {
         const textData = text.toUpperCase();
         return (
-          item.title.toUpperCase().indexOf(textData) > -1 ||
-          item.mat.toUpperCase().indexOf(textData) > -1 ||
-          item.localisation.toUpperCase().indexOf(textData) > -1 ||
-          item.qualité.toUpperCase().indexOf(textData) > -1 ||
-          item.livraison.toUpperCase().indexOf(textData) > -1
+          item.Nom_entreprise.toUpperCase().indexOf(textData) > -1 ||
+          item.name_mtr.toUpperCase().indexOf(textData) > -1 ||
+          item.design_wilaya.toUpperCase().indexOf(textData) > -1 ||
+          item.text.toUpperCase().indexOf(textData) > -1 ||
+          (item.is_delivery_offer === 1
+            ? "oui".toUpperCase().indexOf(textData) > -1
+            : "non".toUpperCase().indexOf(textData) > -1)
         );
       });
       setsearchdata(newData);
       setsearchValue(text);
     } else {
-      setsearchdata(elements);
       setsearchValue(text);
     }
   };
-
+  //fonction qui sera executée quand on fait refresh
   const onRefresh = React.useCallback(() => {
     setRefreshing(true);
     searchFunction("");
     setmessage("charger plus");
     setNumpage(1);
     setlastborder(10);
+    setsearchdata(offer);
     wait(2000).then(() => setRefreshing(false));
   }, []);
+
+  //////////////////////////////////////////
 
   return (
     <SafeAreaView style={styles.bigcontainer}>
@@ -490,13 +518,19 @@ function Home({ navigation, route }) {
               }
               return (
                 <Item
-                  title={item.title}
-                  mat={item.mat}
-                  localisation={item.localisation}
-                  qualité={item.qualité}
-                  livraison={item.livraison}
-                  photo={item.photo}
-                  favorie={item.favorie}
+                  Nom_entreprise={item.Nom_entreprise}
+                  name_mtr={item.name_mtr} //matière
+                  text={item.text} //qualité
+                  design_wilaya={item.design_wilaya} //wilaya
+                  nom_com={item.nom_com} //commune
+                  is_delivery_offer={item.is_delivery_offer}
+                  description={item.description}
+                  is_pickup_offer={item.is_pickup_offer}
+                  valid_til__offer={item.valid_til__offer}
+                  volume_offer={item.volume_offer}
+                  quantity_offer={item.quantity_offer}
+                  price_offer={item.price_offer}
+                  weight_offer={item.weight_offer}
                 />
               );
             }}
@@ -557,8 +591,8 @@ function Home({ navigation, route }) {
             </TouchableOpacity>
             <SafeAreaView>
               <Text style={styles.modalText}>
-                {modaldata.mat.slice(0, 1).toUpperCase() +
-                  modaldata.mat.slice(1)}
+                {modaldata.name_mtr.slice(0, 1).toUpperCase() +
+                  modaldata.name_mtr.slice(1)}
               </Text>
               <SafeAreaView
                 style={{
@@ -583,8 +617,8 @@ function Home({ navigation, route }) {
                 >
                   <Text style={styles.modalText}>Société:{"   "}</Text>
                   <Text style={styles.modalText2}>
-                    {modaldata.title.slice(0, 1).toUpperCase() +
-                      modaldata.title.slice(1)}
+                    {modaldata.Nom_entreprise.slice(0, 1).toUpperCase() +
+                      modaldata.Nom_entreprise.slice(1)}
                   </Text>
                 </SafeAreaView>
                 <SafeAreaView
@@ -598,8 +632,8 @@ function Home({ navigation, route }) {
                     Qualité du matériel:{"   "}
                   </Text>
                   <Text style={styles.modalText2}>
-                    {modaldata.qualité.slice(0, 1).toUpperCase() +
-                      modaldata.qualité.slice(1)}
+                    {modaldata.text.slice(0, 1).toUpperCase() +
+                      modaldata.text.slice(1)}
                   </Text>
                 </SafeAreaView>
                 <SafeAreaView
@@ -609,10 +643,23 @@ function Home({ navigation, route }) {
                     alignContent: "center",
                   }}
                 >
-                  <Text style={styles.modalText}>Localisation:{"   "}</Text>
+                  <Text style={styles.modalText}>wilaya:{"   "}</Text>
                   <Text style={styles.modalText2}>
-                    {modaldata.localisation.slice(0, 1).toUpperCase() +
-                      modaldata.localisation.slice(1)}
+                    {modaldata.design_wilaya.slice(0, 1).toUpperCase() +
+                      modaldata.design_wilaya.slice(1)}
+                  </Text>
+                </SafeAreaView>
+                <SafeAreaView
+                  style={{
+                    flexDirection: "row",
+                    justifyContent: "flex-start",
+                    alignContent: "center",
+                  }}
+                >
+                  <Text style={styles.modalText}>Commune:{"   "}</Text>
+                  <Text style={styles.modalText2}>
+                    {modaldata.nom_com.slice(0, 1).toUpperCase() +
+                      modaldata.nom_com.slice(1)}
                   </Text>
                 </SafeAreaView>
                 <SafeAreaView
@@ -625,8 +672,9 @@ function Home({ navigation, route }) {
                   <Text style={styles.modalText}>Livraison:{"   "}</Text>
 
                   <Text style={styles.modalText2}>
-                    {modaldata.livraison.slice(0, 1).toUpperCase() +
-                      modaldata.livraison.slice(1)}
+                    {modaldata.is_delivery_offer === 1
+                      ? "Disponible"
+                      : "Indisponible"}
                   </Text>
                 </SafeAreaView>
               </SafeAreaView>
@@ -736,25 +784,6 @@ const styles = StyleSheet.create({
 
 export default Home;
 
-/*contentContainerStyle
-<ScrollView contentContainerStyle={styles.container}> */
-
-/**import {RefreshControl} from 'react-native'
-const [refreshing, setRefreshing] = useState(false);
-
-  const onRefresh = useCallback(() => {
-    setRefreshing(true);
-    getData();
-
-      var config = {
-        method: "post",
-        url: "http */
-
-/**const onRefresh = useCallback(() => {
-    setRefreshing(true);
-  getDemands();
-    setRefreshing(false);
-  }, []); */
 /* id_offer
   uuid_offer
   uuid_mtr

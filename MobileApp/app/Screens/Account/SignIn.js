@@ -11,6 +11,10 @@ import { Color } from "../../../Config/Colors";
 import PhoneInput from "react-native-phone-number-input";
 
 function SignIn({ navigation }) {
+  /*****************************************EXPLICATION********************************************** */
+  //les erreurs syntaxiques vérifiées
+  //il reste que s'inscrire avec google
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////
   const [value, setValue] = useState("");
   const [formattedValue, setFormattedValue] = useState("");
   const [msgerr, setmsgerr] = useState("");

@@ -14,12 +14,19 @@ import matière from "../../Data/matière.json";
 import qualité from "../../Data/qualité.json";
 import Localisation from "../../Data/Localisation.json";
 import SelectDropdown from "react-native-select-dropdown";
-import { Dimensions } from "react-native";
 import { RadioButton } from "react-native-paper";
 import { SCREEN_HEIGHT } from "./Home";
 import { SCREEN_WIDTH } from "./Home";
 
 function SoumettreOffre({ navigation, route }) {
+  /*****************************************EXPLICATION********************************************** */
+  //on peut rendre cette page dynamique : on rajoute un useeffect et on ramene les données de la bdd
+  //à la place des données statiques matière , livraison, localisation,et qualité
+
+  /////////les erreurs syntaxique sans vérifiées , les champs obligatoires aussi
+  ////////il reste que comment enregistrer l'offre dans la bdd(fonction backend à implémenter)
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////
+
   //Declaration des variables
   ////////////////////////////////////////////////////////////
 

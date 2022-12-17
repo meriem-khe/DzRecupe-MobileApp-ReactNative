@@ -13,6 +13,11 @@ import PhoneInput from "react-native-phone-number-input";
 //import { GoogleSignin, GoogleSigninButton } from "react-native-google-signin";
 
 function LogIn({ navigation }) {
+  /*****************************************EXPLICATION********************************************** */
+  //les erreurs syntaxiques vérifiées
+  //il reste que se connecter avec google
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////
+
   const [value, setValue] = useState("");
   const [formattedValue, setFormattedValue] = useState("");
   const [msgerr, setmsgerr] = useState("");

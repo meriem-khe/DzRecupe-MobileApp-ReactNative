@@ -13,11 +13,15 @@ import { SearchBar } from "react-native-elements";
 import { Color } from "../../../Config/Colors";
 import Icon from "react-native-vector-icons/FontAwesome";
 import elements from "../../Data/elements.json";
-import { Dimensions } from "react-native";
 import { SCREEN_WIDTH } from "./Home";
 import { SCREEN_HEIGHT } from "./Home";
 
 function MesOffres({ navigation }) {
+  /*****************************************EXPLICATION********************************************** */
+  //meme chose avec la page mes favoris , je touche à rien , si je veux afficher les données de bdd je n'est qu'à rajouter un
+  //useeffect et metre à jour elements oubien mettre à jour searchdata directement
+  //le reste des fonctions : la recherche ou le refresh par exemple ça sera tout comme dans homepage!
+
   const [searchdata, setsearchdata] = useState(elements);
   const [searchValue, setsearchValue] = useState("");
   const [refreshing, setRefreshing] = useState(false);

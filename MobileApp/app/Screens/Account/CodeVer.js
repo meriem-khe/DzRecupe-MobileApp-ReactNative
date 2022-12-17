@@ -10,6 +10,10 @@ import {
 import { Color } from "../../../Config/Colors";
 
 function CodeVer({ route, navigation }) {
+  /*****************************************EXPLICATION********************************************** */
+  //les erreurs syntaxiques vérifiées
+  //il reste que valider le code, renvoyer le code (fonctionalitées backend)
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////
   const num = route.params.num;
   const [colorResend, setcolorResend] = useState(Color.bleu_clair);
   const [tabcode, settabcode] = useState([]);

@@ -22,7 +22,7 @@ const Drawer = createDrawerNavigator();
 
 export default function App() {
   const [isDarkTheme, setIsDarkTheme] = React.useState(false);
-  const [islogedin, setislogedin] = React.useState(true);
+  const [islogedin, setislogedin] = React.useState(false); //provisoire en attendant les fonctions backend!
 
   const CustomDefaultTheme = {
     ...NavigationDefaultTheme,
@@ -50,7 +50,7 @@ export default function App() {
   return (
     <PaperProvider theme={theme}>
       <NavigationContainer theme={theme}>
-        {islogedin ? (
+        {islogedin ? ( //si il est connecté j'accède directement à la page d'acceuil
           <Drawer.Navigator
             drawerContent={(props) => <DrawerContent {...props} />}
             screenOptions={{ headerShown: false }}
@@ -58,6 +58,7 @@ export default function App() {
             <Drawer.Screen name="MainTabScreen" component={MainTabScreen} />
           </Drawer.Navigator>
         ) : (
+          //sinon au pages d'initialisation de l'application
           <RootStackScreen />
         )}
       </NavigationContainer>
